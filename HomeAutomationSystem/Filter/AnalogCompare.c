@@ -15,8 +15,6 @@ void* analogCompare_process(void* arg)
 {
 	uint16_t value = (uint16_t)arg;
 	
-	printf("%d\r\n", value);
-	
 	if (value > 128)
 	{
 		return (void*)1;

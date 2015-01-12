@@ -17,6 +17,8 @@
 #include "Filter/Filter.h"
 #include "UART.h"
 
+#include "network/stack.h"
+
 
 void startUp(void);
 void updateLoop(void);
@@ -40,11 +42,15 @@ void startUp(void)
 	setup_uart();
 	//print colored hallo welt
 	//see http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-	printf("\e[0;31mhallo welt");
+	printf("\e[0;31mhallo welt\r\n");
 	
 	filterList = addFilterNode(filterList, createFilterNode(&analogIn_process));
 	addFilterNode(filterList, createFilterNode(&analogCompare_process));
 	addFilterNode(filterList, createFilterNode(&binaryOut_process));
+	
+	printf("setup network\r\n");
+	setup_stack();
+	printf("finished\r\n");
 }
 
 filterNode* createFilterNode(processMethodPointer processMethod)
@@ -67,5 +73,7 @@ void updateLoop(void)
 			arg = current->processMethod(arg);
 			current = current->next;
 		}
+		
+		eth_get_data();
 	}
 }

@@ -21,7 +21,7 @@
    nicht verwendet, sondern stattdessen der Defaultwert (8 MHz?) 
    von AVRStudio - daher Ausgabe einer Warnung falls F_CPU
    noch nicht definiert: */
-#warning "F_CPU war noch nicht definiert, wird nun nachgeholt mit 2000000"
+#warning "F_CPU war noch nicht definiert, wird nun nachgeholt mit 16000000"
 #define F_CPU 16000000UL  // Systemtakt in Hz - Definition als unsigned long beachten 
                          // Ohne ergeben sich unten Fehler in der Berechnung
 #endif
