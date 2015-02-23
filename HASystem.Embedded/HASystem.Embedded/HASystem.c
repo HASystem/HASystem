@@ -77,7 +77,5 @@ void updateLoop(void)
 		//}
 		//
 		//eth_get_data();
-		
-		start_meas();
 	}
 }

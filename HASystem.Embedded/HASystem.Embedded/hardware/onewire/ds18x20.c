@@ -46,8 +46,6 @@ changelog:
 /* functions for debugging-output - undef DS18X20_VERBOSE in .h
    if you run out of program-memory */
 #include <string.h>
-#include "uart.h"
-#include "uart_addon.h"
 #include <stdio.h>
 
 static int16_t DS18X20_raw_to_decicelsius( uint8_t fc, uint8_t sp[] );
