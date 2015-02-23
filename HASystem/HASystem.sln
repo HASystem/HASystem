@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Server", "HASystem.Server\HASystem.Server.csproj", "{74E8DFC2-BE5B-478B-B8AF-DF835AE49E06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Server.Service", "HASystem.Server.Service\HASystem.Server.Service.csproj", "{454700D5-2DEF-416B-A5D0-9A5142DD0823}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Presentation", "HASystem.Desktop.Presentation\HASystem.Desktop.Presentation.csproj", "{05237915-3820-4A8B-99A3-5C0C03743238}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Application", "HASystem.Desktop.Application\HASystem.Desktop.Application.csproj", "{AB9A326E-7217-42B8-8148-7CDC62EBBE6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Domain", "HASystem.Desktop.Domain\HASystem.Desktop.Domain.csproj", "{6DF7C31B-D456-40C9-BAEA-A9C377193ED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Assembler", "HASystem.Desktop.Assembler\HASystem.Desktop.Assembler.csproj", "{F7DD2DDF-E51E-4F1B-BB95-14A488FB009E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74E8DFC2-BE5B-478B-B8AF-DF835AE49E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74E8DFC2-BE5B-478B-B8AF-DF835AE49E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74E8DFC2-BE5B-478B-B8AF-DF835AE49E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74E8DFC2-BE5B-478B-B8AF-DF835AE49E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{454700D5-2DEF-416B-A5D0-9A5142DD0823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454700D5-2DEF-416B-A5D0-9A5142DD0823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454700D5-2DEF-416B-A5D0-9A5142DD0823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454700D5-2DEF-416B-A5D0-9A5142DD0823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05237915-3820-4A8B-99A3-5C0C03743238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05237915-3820-4A8B-99A3-5C0C03743238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05237915-3820-4A8B-99A3-5C0C03743238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05237915-3820-4A8B-99A3-5C0C03743238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB9A326E-7217-42B8-8148-7CDC62EBBE6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9A326E-7217-42B8-8148-7CDC62EBBE6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9A326E-7217-42B8-8148-7CDC62EBBE6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9A326E-7217-42B8-8148-7CDC62EBBE6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DF7C31B-D456-40C9-BAEA-A9C377193ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DF7C31B-D456-40C9-BAEA-A9C377193ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DF7C31B-D456-40C9-BAEA-A9C377193ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DF7C31B-D456-40C9-BAEA-A9C377193ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7DD2DDF-E51E-4F1B-BB95-14A488FB009E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7DD2DDF-E51E-4F1B-BB95-14A488FB009E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7DD2DDF-E51E-4F1B-BB95-14A488FB009E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7DD2DDF-E51E-4F1B-BB95-14A488FB009E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

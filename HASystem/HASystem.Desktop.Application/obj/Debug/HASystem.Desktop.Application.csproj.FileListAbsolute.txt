@@ -1,0 +1,4 @@
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Application\bin\Debug\HASystem.Desktop.Application.dll
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Application\bin\Debug\HASystem.Desktop.Application.pdb
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Application\obj\Debug\HASystem.Desktop.Application.dll
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Application\obj\Debug\HASystem.Desktop.Application.pdb
