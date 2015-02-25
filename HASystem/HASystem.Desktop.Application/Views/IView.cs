@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HASystem.Desktop.Application.Windows
+namespace HASystem.Desktop.Application.Views
 {
-    public interface IWindow
+    public interface IView
     {
-        void Show();
     }
 }

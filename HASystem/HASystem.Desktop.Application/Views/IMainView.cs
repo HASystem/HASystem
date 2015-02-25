@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HASystem.Desktop.Application.Views
 {
-    public interface IMainView
+    public interface IMainView : IView
     {
     }
 }

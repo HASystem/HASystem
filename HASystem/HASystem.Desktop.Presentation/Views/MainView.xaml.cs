@@ -17,14 +17,15 @@ using System.Windows.Shapes;
 
 namespace HASystem.Desktop.Presentation.Views
 {
-
     [Export(typeof(IMainView)), PartCreationPolicy(CreationPolicy.Shared)]
     public partial class MainView : UserControl, IMainView
     {
+        #region ctor
         [ImportingConstructor]
         public MainView()
         {
             InitializeComponent();
         }
+        #endregion
     }
 }

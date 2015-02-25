@@ -1,5 +1,4 @@
-﻿using HASystem.Desktop.Application.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -16,13 +15,15 @@ using System.Windows.Shapes;
 
 namespace HASystem.Desktop.Assembler
 {
-    [Export(typeof(IWindow)), PartCreationPolicy(CreationPolicy.NonShared)]
-    public partial class StartWindow : Window, IWindow
+    [Export(typeof(StartWindow)), PartCreationPolicy(CreationPolicy.NonShared)]
+    public partial class StartWindow : Window
     {
+        #region ctor
         [ImportingConstructor]
         public StartWindow()
         {
             InitializeComponent();
         }
+        #endregion
     }
 }

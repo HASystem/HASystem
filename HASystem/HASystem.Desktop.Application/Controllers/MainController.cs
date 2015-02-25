@@ -11,12 +11,16 @@ namespace HASystem.Desktop.Application.Controllers
     [Export(typeof(MainController)), PartCreationPolicy(CreationPolicy.Shared)]
     public class MainController
     {
-        public MainPresentationModel PresentationModel { get; set; }
+        #region properties
+        public MainPresentationModel PresentationModel { get; private set; }
+        #endregion
 
+        #region ctor
         [ImportingConstructor]
-        public MainController(MainPresentationModel presentationModel)
+        public MainController()
         {
-            PresentationModel = presentationModel;
+            //PresentationModel = presentationModel;
         }
+        #endregion
     }
 }

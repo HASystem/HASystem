@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HASystem.Desktop.Application.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -12,9 +13,6 @@ using System.Windows;
 
 namespace HASystem.Desktop.Assembler
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App
     {
         protected override void OnStartup(StartupEventArgs e)
@@ -22,8 +20,8 @@ namespace HASystem.Desktop.Assembler
             base.OnStartup(e);
             var catalog = new AggregateCatalog();
 
-            Type type = typeof(App);
-            catalog.Catalogs.Add(new AssemblyCatalog(type.Assembly));
+            catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+            catalog.Catalogs.Add(new DirectoryCatalog("."));
 
             var container = new CompositionContainer(catalog);
 

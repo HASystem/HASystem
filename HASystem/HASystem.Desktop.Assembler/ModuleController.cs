@@ -1,6 +1,5 @@
 ﻿using HASystem.Desktop.Application.Controllers;
 using HASystem.Desktop.Application.Views;
-using HASystem.Desktop.Application.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -14,22 +13,27 @@ namespace HASystem.Desktop.Assembler
     [Export(typeof(IModuleController)), PartCreationPolicy(CreationPolicy.Shared)]
     public class ModuleController : IModuleController
     {
+        #region properties
         public CompositionContainer CompositionContainer { get; set; }
-        public IWindow Window { get; private set; }
+        public StartWindow Window { get; private set; }
 
         public MainController Controller { get; private set; }
+        #endregion
 
-
+        #region ctor
         [ImportingConstructor]
-        public ModuleController(IWindow window)
+        public ModuleController(StartWindow window, MainController controller)
         {
             Window = window;
-            //Controller = controller;
+            Controller = controller;
         }
+        #endregion
 
+        #region methods
         public void Run()
         {
             Window.Show();
         }
+        #endregion
     }
 }

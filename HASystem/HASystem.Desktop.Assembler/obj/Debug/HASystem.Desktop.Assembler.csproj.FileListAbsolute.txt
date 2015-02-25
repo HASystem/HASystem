@@ -1,4 +1,11 @@
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Assembler.exe.config
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Assembler.exe
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Assembler.pdb
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Application.dll
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Application.pdb
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Output\HASystem.Desktop.Assembler.exe.config
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Output\HASystem.Desktop.Assembler.exe
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Output\HASystem.Desktop.Assembler.pdb
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\HASystem.Desktop.Assembler.csprojResolveAssemblyReference.cache
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\StartWindow.baml
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\StartWindow.g.cs
@@ -7,9 +14,5 @@ W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\H
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\HASystem.Desktop.Assembler.g.resources
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\HASystem.Desktop.Assembler.Properties.Resources.resources
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\HASystem.Desktop.Assembler.csproj.GenerateResource.Cache
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Assembler.exe
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Assembler.pdb
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Application.dll
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\bin\Debug\HASystem.Desktop.Application.pdb
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\HASystem.Desktop.Assembler.exe
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Assembler\obj\Debug\HASystem.Desktop.Assembler.pdb

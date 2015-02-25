@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace HASystem.Desktop.Application.PresentationModels
 {
     [Export(typeof(MainPresentationModel)), PartCreationPolicy(CreationPolicy.Shared)]
-    public class MainPresentationModel
+    public class MainPresentationModel : PresentationModel<IMainView>
     {
-        public IMainView View { get; set; }
-
+        #region ctor
         [ImportingConstructor]
-        public MainPresentationModel(IMainView mainView)
+        public MainPresentationModel(IMainView view)
         {
-            View = mainView;
+            View = view;
         }
+        #endregion
     }
 }
