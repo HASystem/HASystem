@@ -1,7 +1,0 @@
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Domain\bin\Debug\HASystem.Desktop.Domain.dll
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Domain\bin\Debug\HASystem.Desktop.Domain.pdb
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Output\HASystem.Desktop.Domain.dll
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Output\HASystem.Desktop.Domain.pdb
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Domain\obj\Debug\HASystem.Desktop.Domain.csprojResolveAssemblyReference.cache
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Domain\obj\Debug\HASystem.Desktop.Domain.dll
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Domain\obj\Debug\HASystem.Desktop.Domain.pdb

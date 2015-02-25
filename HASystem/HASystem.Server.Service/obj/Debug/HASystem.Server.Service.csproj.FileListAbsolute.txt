@@ -1,6 +1,0 @@
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Server.Service\bin\Debug\HASystem.Server.Service.exe.config
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Server.Service\bin\Debug\HASystem.Server.Service.exe
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Server.Service\bin\Debug\HASystem.Server.Service.pdb
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Server.Service\obj\Debug\HASystem.Server.Service.csprojResolveAssemblyReference.cache
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Server.Service\obj\Debug\HASystem.Server.Service.exe
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Server.Service\obj\Debug\HASystem.Server.Service.pdb
