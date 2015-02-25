@@ -1,0 +1,4 @@
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Output\HASystem.Desktop.Utilities.dll
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Output\HASystem.Desktop.Utilities.pdb
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Utilities\obj\Debug\HASystem.Desktop.Utilities.dll
+W:\HASystem\homeautomationsystem\HASystem\HASystem.Desktop.Utilities\obj\Debug\HASystem.Desktop.Utilities.pdb

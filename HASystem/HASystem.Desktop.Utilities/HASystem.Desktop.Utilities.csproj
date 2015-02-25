@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6DF7C31B-D456-40C9-BAEA-A9C377193ED9}</ProjectGuid>
+    <ProjectGuid>{E15511BC-8ED0-48EB-8976-36EFF98ED90F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HASystem.Desktop.Domain</RootNamespace>
-    <AssemblyName>HASystem.Desktop.Domain</AssemblyName>
+    <RootNamespace>HASystem.Desktop.Utilities</RootNamespace>
+    <AssemblyName>HASystem.Desktop.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,13 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NotifyPropertyChangedBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HASystem.Desktop.Utilities\HASystem.Desktop.Utilities.csproj">
-      <Project>{e15511bc-8ed0-48eb-8976-36eff98ed90f}</Project>
-      <Name>HASystem.Desktop.Utilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

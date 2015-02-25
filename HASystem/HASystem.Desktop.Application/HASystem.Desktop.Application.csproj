@@ -47,7 +47,16 @@
     <Compile Include="Views\IMainView.cs" />
     <Compile Include="Views\IView.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HASystem.Desktop.Domain\HASystem.Desktop.Domain.csproj">
+      <Project>{6df7c31b-d456-40c9-baea-a9c377193ed9}</Project>
+      <Name>HASystem.Desktop.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HASystem.Desktop.Utilities\HASystem.Desktop.Utilities.csproj">
+      <Project>{e15511bc-8ed0-48eb-8976-36eff98ed90f}</Project>
+      <Name>HASystem.Desktop.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

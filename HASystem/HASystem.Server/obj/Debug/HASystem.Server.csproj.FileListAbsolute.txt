@@ -1,5 +1,4 @@
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Server\bin\Debug\HASystem.Server.dll
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Server\bin\Debug\HASystem.Server.pdb
-W:\HASystem\homeautomationsystem\HASystem\HASystem.Server\obj\Debug\HASystem.Server.csprojResolveAssemblyReference.cache
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Server\obj\Debug\HASystem.Server.dll
 W:\HASystem\homeautomationsystem\HASystem\HASystem.Server\obj\Debug\HASystem.Server.pdb

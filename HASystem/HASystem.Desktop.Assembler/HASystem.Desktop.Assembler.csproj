@@ -100,6 +100,10 @@
       <Project>{ab9a326e-7217-42b8-8148-7cdc62ebbe6e}</Project>
       <Name>HASystem.Desktop.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HASystem.Desktop.Utilities\HASystem.Desktop.Utilities.csproj">
+      <Project>{e15511bc-8ed0-48eb-8976-36eff98ed90f}</Project>
+      <Name>HASystem.Desktop.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,5 +8,6 @@ namespace HASystem.Desktop.Application.Views
 {
     public interface IView
     {
+        object DataContext { get; set; }
     }
 }
