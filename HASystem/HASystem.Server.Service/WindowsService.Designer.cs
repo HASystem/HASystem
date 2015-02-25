@@ -1,6 +1,6 @@
 ﻿namespace HASystem.Server.Service
 {
-    partial class Service1
+    partial class WindowsService
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            // 
+            // WindowsService
+            // 
+            this.ServiceName = "HASystem Service";
+
         }
 
         #endregion

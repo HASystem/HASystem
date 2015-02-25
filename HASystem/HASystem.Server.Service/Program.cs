@@ -7,19 +7,26 @@ using System.Threading.Tasks;
 
 namespace HASystem.Server.Service
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        private static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new Service1() 
-            };
-            ServiceBase.Run(ServicesToRun);
+            if (Environment.UserInteractive)
+            {
+                new WindowsService().Start();
+            }
+            else
+            {
+                ServiceBase[] servicesToRun;
+                servicesToRun = new ServiceBase[]
+                {
+                    new WindowsService()
+                };
+                ServiceBase.Run(servicesToRun);
+            }
         }
     }
 }
