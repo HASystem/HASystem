@@ -46,7 +46,7 @@ namespace HASystem.Server.Service
 
         public void Start()
         {
-            OnStart(new string[0]);
+            OnStart(Environment.GetCommandLineArgs());
         }
     }
 }
