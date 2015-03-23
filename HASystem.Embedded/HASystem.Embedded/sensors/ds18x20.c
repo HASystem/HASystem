@@ -28,8 +28,8 @@ changelog:
 #include <avr/pgmspace.h>
 
 #include "ds18x20.h"
-#include "onewire.h"
-#include "crc8.h"
+#include "../hardware/onewire/onewire.h"
+#include "../utils/crc8.h"
 
 #if DS18X20_EEPROMSUPPORT
 // for 10ms delay in copy scratchpad

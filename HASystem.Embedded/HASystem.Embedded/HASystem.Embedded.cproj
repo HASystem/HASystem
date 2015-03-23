@@ -148,22 +148,13 @@
     <Compile Include="hardware\ethernet\enc28j60.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="hardware\onewire\crc8.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="hardware\onewire\crc8.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="hardware\onewire\ds18x20.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="hardware\onewire\ds18x20.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="hardware\onewire\onewire.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hardware\onewire\onewire.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hasSystem.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HASystem.c">
@@ -187,10 +178,28 @@
     <Compile Include="onewiretest_Main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="sensors\gpio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="sensors\gpio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="sensors\ds18x20.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="sensors\ds18x20.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UART.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UART.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\crc8.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\crc8.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
@@ -201,6 +210,8 @@
     <Folder Include="hardware\ethernet" />
     <Folder Include="hardware\onewire" />
     <Folder Include="network" />
+    <Folder Include="utils" />
+    <Folder Include="sensors" />
   </ItemGroup>
   <ItemGroup>
     <None Include="datasheets\39662e.pdf">
