@@ -14,7 +14,7 @@
 //const
 
 //default Ethernet MTU = 1518
-#define MTU_SIZE 1518
+#define MTU_SIZE 400
 
 //typedefs
 typedef uint32_t Ip;

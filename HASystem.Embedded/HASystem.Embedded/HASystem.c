@@ -76,6 +76,6 @@ void updateLoop(void)
 		//current = current->next;
 		//}
 		//
-		//eth_get_data();
+		eth_get_data();
 	}
 }
