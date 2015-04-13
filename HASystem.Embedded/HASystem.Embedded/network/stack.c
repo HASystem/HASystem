@@ -44,8 +44,8 @@ void handle_packet(uint8_t *buffer, int32_t buffer_size)
 {
 	printf("got packet size=%li\r\n", eth_packet_length);
 	
-	Ethernet_Header *header = (Ethernet_Header*)buffer;
-	Ethernet_Frame frame;
+	ethernetHeader_t *header = (ethernetHeader_t*)buffer;
+	ethernetFrame_t frame;
 	frame.Header = header;
 	frame.Data = header + ETHERNET_HEADER_SIZE;
 	frame.Checksum = (uint32_t*)(buffer + buffer_size);
