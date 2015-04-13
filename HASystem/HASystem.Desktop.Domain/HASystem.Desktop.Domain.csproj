@@ -39,6 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gates\Connection.cs" />
+    <Compile Include="Gates\Direction.cs" />
+    <Compile Include="Gates\GateBase.cs" />
+    <Compile Include="Gates\IInput.cs" />
+    <Compile Include="Gates\Input.cs" />
+    <Compile Include="Gates\IOuput.cs" />
+    <Compile Include="Gates\LogicGates\AndGate.cs" />
+    <Compile Include="Gates\Output.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +54,9 @@
       <Project>{e15511bc-8ed0-48eb-8976-36eff98ed90f}</Project>
       <Name>HASystem.Desktop.Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Gates\IOGates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
