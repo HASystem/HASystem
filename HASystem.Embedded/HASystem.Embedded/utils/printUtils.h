@@ -18,10 +18,10 @@
 #define PRINTUTILS_VERBOSE				"\e[0;30m"
 #define PRINTUTILS_DEBUG				"\e[0;32m"
 
-#define printError(msg, ...)		printf(PRINTUTILS_ERROR); printf(msg, __VA_ARGS__)
-#define printWarning(msg, ...)		printf(PRINTUTILS_WARNING); printf(msg, __VA_ARGS__)
-#define printInfo(msg, ...)			printf(PRINTUTILS_INFO); printf(msg, __VA_ARGS__)
-#define printVerbose(msg, ...)		printf(PRINTUTILS_VERBOSE); printf(msg, __VA_ARGS__)
-#define printDebug(msg, ...)		printf(PRINTUTILS_DEBUG); printf(msg, __VA_ARGS__)
+#define printError(msg, ...)		printf(PRINTUTILS_ERROR); printf(msg, ##__VA_ARGS__)
+#define printWarning(msg, ...)		printf(PRINTUTILS_WARNING); printf(msg, ##__VA_ARGS__)
+#define printInfo(msg, ...)			printf(PRINTUTILS_INFO); printf(msg, ##__VA_ARGS__)
+#define printVerbose(msg, ...)		printf(PRINTUTILS_VERBOSE); printf(msg, ##__VA_ARGS__)
+#define printDebug(msg, ...)		printf(PRINTUTILS_DEBUG); printf(msg, ##__VA_ARGS__)
 
 #endif /* PRINTUTILS_H_ */

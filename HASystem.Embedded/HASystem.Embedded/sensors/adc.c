@@ -20,7 +20,7 @@ typedef struct {
 
 void ADCInit(initArgs args)
 {
-	adcInitPacket_t *arg = (gpioIniadcInitPacket_ttPacket_t*)args;
+	adcInitPacket_t *arg = (adcInitPacket_t *)args;
 	
 	//DDRA = 0x00;
 	//ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // Set ADC prescalar to 128 - 125KHz sample rate @ 16MHz
@@ -38,7 +38,7 @@ void ADCInit(initArgs args)
 
 void ADCPushPacket(genericBuffer buf, packetSize size)
 {
-	if (size < sizeof(gpioPushPacket_t))
+	if (size < sizeof(adcPushPacket_t))
 	{
 		//we didn't got enough data
 		return;
@@ -58,5 +58,5 @@ packetSize ADCPullPacket(genericBuffer buf)
 	//}
 	//return ADCH;                    // ADC auslesen und zurückgeben
 	
-	return sizeof(gpioPullPacket_t);
+	return sizeof(adcPullPacket_t);
 }
