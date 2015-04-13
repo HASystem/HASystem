@@ -11,23 +11,14 @@
 #include <stdio.h>
 
 #include "config.h"
-#include "filter/binaryInFilter.h"
-#include "filter/binaryOutFilter.h"
-#include "filter/analogInFilter.h"
-#include "filter/analogCompare.h"
-#include "filter/filter.h"
 #include "UART.h"
+#include "utils/printUtils.h"
 
 #include "network/stack.h"
-#include "hardware/onewire/onewire.h"
-
 
 void startUp(void);
 void updateLoop(void);
-filterNode* createFilterNode(processMethodPointer processMethod);
 
-
-filterNode* filterList = NULL;
 
 int main(void)
 {
@@ -38,44 +29,18 @@ int main(void)
 
 void startUp(void)
 {
-	//filterList = addFilterNode(filterList, createFilterNode(&binaryIn_process));
-	//addFilterNode(filterList, createFilterNode(&binaryOut_process));
-	
 	setup_uart();
-	//print colored hallo welt
-	//see http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-	printf("\e[0;31mhallo welt\r\n");
+	printInfo("Starting HASystem\r\n");
 	
-	filterList = addFilterNode(filterList, createFilterNode(&analogIn_process));
-	addFilterNode(filterList, createFilterNode(&analogCompare_process));
-	addFilterNode(filterList, createFilterNode(&binaryOut_process));
-	
-	printf("setup network\r\n");
+	printInfo("setup network...");
 	setup_stack();
-	printf("finished\r\n");
-}
-
-filterNode* createFilterNode(processMethodPointer processMethod)
-{
-	filterNode* newNode = (filterNode*) malloc(sizeof(filterNode));
-	newNode->processMethod = processMethod;
-	newNode->next = NULL;
-	return newNode;
+	printInfo("finished\r\n");
 }
 
 void updateLoop(void)
 {
-	void* arg = NULL;
-	while(1)
+	for(;;)
 	{
-		//filterNode* current = filterList;
-		//
-		//while(current != NULL)
-		//{
-		//arg = current->processMethod(arg);
-		//current = current->next;
-		//}
-		//
 		eth_get_data();
 	}
 }

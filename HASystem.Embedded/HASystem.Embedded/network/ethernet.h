@@ -9,21 +9,21 @@
 #ifndef ETHERNET_H_
 #define ETHERNET_H_
 
-typedef uint8_t MacAddress[6];
+typedef uint8_t macAddress_t[6];
 
-typedef struct Ethernet_Header
+typedef struct
 {
-	MacAddress Dest;
-	MacAddress Source;
+	macAddress_t Dest;
+	macAddress_t Source;
 	uint16_t Type;
-} Ethernet_Header;
+} ethernetHeader_t;
 
-typedef struct Ethernet_Frame
+typedef struct
 {
-	Ethernet_Header *Header;
+	ethernetHeader_t *Header;
 	void* Data;
 	uint32_t *Checksum;
-} Ethernet_Frame;
+} ethernetFrame_t;
 
 #define ETHERNET_HEADER_SIZE 14
 #define ETHERNET_MIN_SIZE 64
