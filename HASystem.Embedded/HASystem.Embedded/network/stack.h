@@ -10,6 +10,7 @@
 #define STACK_H_
 
 #include <inttypes.h>
+#include "ethernet.h"
 
 //const
 
@@ -24,8 +25,15 @@ typedef uint32_t Ip;
 #define HTONS16(n) (unsigned int)((((unsigned int) (n)) << 8) | (((unsigned int) (n)) >> 8))
 #define HTONS32(x) ((x & 0xFF000000)>>24)+((x & 0x00FF0000)>>8)+((x & 0x0000FF00)<<8)+((x & 0x000000FF)<<24)
 
+Ip localIp;
+Ip netmask;
+Ip broadcast;
+macAddress_t localMac;
+
 //methods
-void setup_stack();
-void eth_get_data();
+void stack_setup(void);
+void stack_getEthernetData(void);
+ethernetFrame_t* stack_createEthernetFrame(void);
+void stack_sendEthernetFrame(ethernetFrame_t* packet, uint16_t dataSize);
 
 #endif /* STACK_H_ */

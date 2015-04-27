@@ -9,7 +9,17 @@
 #ifndef ETHERNET_H_
 #define ETHERNET_H_
 
-typedef uint8_t macAddress_t[6];
+#include <inttypes.h>
+
+typedef struct
+{
+	uint8_t A;
+	uint8_t B;
+	uint8_t C;
+	uint8_t D;
+	uint8_t E;
+	uint8_t F;
+} macAddress_t;
 
 typedef struct
 {
