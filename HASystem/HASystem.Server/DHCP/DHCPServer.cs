@@ -14,9 +14,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using System.Threading;
-using HASystem.Server.Service.DHCP;
 
-namespace HASystem.Server.Service
+namespace HASystem.Server.DHCP
 {
     public class DHCPServer
     {

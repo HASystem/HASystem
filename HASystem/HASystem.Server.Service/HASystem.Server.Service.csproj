@@ -46,15 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DHCP\DHCPData.cs" />
-    <Compile Include="DHCP\DHCPMessage.cs" />
-    <Compile Include="DHCP\DHCPServer.cs" />
-    <Compile Include="DHCP\DHCPService.cs" />
-    <Compile Include="DHCP\UDPAsync.cs" />
-    <Compile Include="DHCP\DHCPMessageType.cs" />
-    <Compile Include="DHCP\DHCPOption.cs" />
-    <Compile Include="DHCP\DHCPTransaction.cs" />
-    <Compile Include="DHCP\UDPState.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>

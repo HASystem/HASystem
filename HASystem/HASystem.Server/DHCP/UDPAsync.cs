@@ -13,10 +13,9 @@ using System.Net.Sockets;
 using System.IO;
 using System.Threading;
 using Microsoft.Win32;
-using HASystem.Server.Service.DHCP;
 
 
-namespace HASystem.Server.Service
+namespace HASystem.Server.DHCP
 {
    public class UDPAsync
    {

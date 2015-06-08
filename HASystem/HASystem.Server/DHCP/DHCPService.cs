@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HASystem.Server.Service.DHCP
+namespace HASystem.Server.DHCP
 {
     public class DHCPService
     {

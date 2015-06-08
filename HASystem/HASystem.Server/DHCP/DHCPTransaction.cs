@@ -1,12 +1,11 @@
-﻿using HASystem.Server.Service.DHCP;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HASystem.Server.Service
+namespace HASystem.Server.DHCP
 {
     public class DHCPTransaction
     {
