@@ -18,12 +18,18 @@
 	mac address
 *************************************************************/
 
-#define MYMAC1  0x00
-#define MYMAC2  0x22
-#define MYMAC3  0xF9
-#define MYMAC4  0x01
-#define MYMAC5  0xC5
-#define MYMAC6  0xD6
+//#define MYMAC1  0x00
+//#define MYMAC2  0x22
+//#define MYMAC3  0xF9
+//#define MYMAC4  0x01
+//#define MYMAC5  0xC5
+//#define MYMAC6  0xD6
+
+#define DEFAULTMAC1  0x00
+#define DEFAULTMAC2  0x22
+#define DEFAULTMAC3  0xF9
+#define DEFAULTMAC4  0x01
+//5 + 6 are generated
 
 // this variable is set during enc_init to the values above.
 extern unsigned char mymac[6];

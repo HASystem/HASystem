@@ -96,12 +96,12 @@ static unsigned char const enc_configdata[] PROGMEM = {
 	#endif
 
 	// our mac address
-	ENC_REG_MAADR5, MYMAC1,
-	ENC_REG_MAADR4, MYMAC2,
-	ENC_REG_MAADR3, MYMAC3,
-	ENC_REG_MAADR2, MYMAC4,
-	ENC_REG_MAADR1, MYMAC5,
-	ENC_REG_MAADR0, MYMAC6,
+	//ENC_REG_MAADR5, MYMAC1,
+	//ENC_REG_MAADR4, MYMAC2,
+	//ENC_REG_MAADR3, MYMAC3,
+	//ENC_REG_MAADR2, MYMAC4,
+	//ENC_REG_MAADR1, MYMAC5,
+	//ENC_REG_MAADR0, MYMAC6,
 
 	// disable CLKOUT pin
 	ENC_REG_ECOCON, 0x00,
@@ -573,12 +573,12 @@ void enc_init(void)
 	ENC_DEBUG("enc revid %x\n", (int) enc_revid);
 
 	// setup mymac variable
-	mymac[0] = MYMAC1;
-	mymac[1] = MYMAC2;
-	mymac[2] = MYMAC3;
-	mymac[3] = MYMAC4;
-	mymac[4] = MYMAC5;
-	mymac[5] = MYMAC6;
+	//mymac[0] = MYMAC1;
+	//mymac[1] = MYMAC2;
+	//mymac[2] = MYMAC3;
+	//mymac[3] = MYMAC4;
+	//mymac[4] = MYMAC5;
+	//mymac[5] = MYMAC6;
 
 
 		// setup enc registers according to the enc_configdata struct
@@ -588,6 +588,15 @@ void enc_init(void)
 			if( r == 0xFF && d == 0xFF ) break;
 			enc_write_reg( r, d );
 		}
+		
+		//set mac
+		enc_write_reg(ENC_REG_MAADR5, mymac[0]);
+		enc_write_reg(ENC_REG_MAADR4, mymac[1]);
+		enc_write_reg(ENC_REG_MAADR3, mymac[2]);
+		enc_write_reg(ENC_REG_MAADR2, mymac[3]);
+		enc_write_reg(ENC_REG_MAADR1, mymac[4]);
+		enc_write_reg(ENC_REG_MAADR0, mymac[5]);
+		
 		// now the phy registers
 		while(1) {
 			r = pgm_read_byte( &enc_configdata[i++] );

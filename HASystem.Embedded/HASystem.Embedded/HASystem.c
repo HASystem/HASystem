@@ -33,7 +33,7 @@ void startUp(void)
 	printInfo("Starting HASystem\r\n");
 	
 	printInfo("setup network...");
-	stack_setup();
+	stack_init();
 	printInfo("finished\r\n");
 }
 
@@ -41,6 +41,6 @@ void updateLoop(void)
 {
 	for(;;)
 	{
-		stack_getEthernetData();
+		eth_get_data();
 	}
 }

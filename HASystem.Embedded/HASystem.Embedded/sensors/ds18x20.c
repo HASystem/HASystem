@@ -58,7 +58,7 @@ void DS18X20_show_id_uart( uint8_t *id, size_t n )
 		if ( i == 0 ) { printf( "FC:" ); }
 		else if ( i == n-1 ) { printf( "CRC:" ); }
 		if ( i == 1 ) { printf( "SN: " ); }
-		uart_puthex_byte(id[i]);
+		printf("%i", id[i]);
 		printf(" ");
 		if ( i == 0 ) {
 			if ( id[0] == DS18S20_FAMILY_CODE ) { printf ("(18S)"); }
@@ -80,7 +80,7 @@ static void show_sp_uart( uint8_t *sp, size_t n )
 	printf( "SP:" );
 	for( i = 0; i < n; i++ ) {
 		if ( i == n-1 ) { printf( "CRC:" ); }
-		uart_puthex_byte(sp[i]);
+		printf("%i", (sp[i]));
 		printf(" ");
 	}
 }
@@ -148,14 +148,14 @@ static void DS18X20_uart_put_temp(const uint8_t subzero,
 	char buffer[sizeof(int)*8+1];
 	size_t i;
 	
-	uart_putc((subzero)?'-':'+');
-	uart_put_int((int)cel);
+	printf("%c", ((subzero)?'-':'+'));
+	printf("%i", ((int)cel));
 	printf(".");
 	itoa(cel_frac_bits*DS18X20_FRACCONV,buffer,10);
 	for ( i = 0; i < 4-strlen(buffer); i++ ) {
 		printf("0");
 	}
-	uart_puts(buffer);
+	printf(buffer);
 	printf("°C");
 }
 
@@ -189,7 +189,7 @@ uint8_t DS18X20_read_meas_all_verbose( void )
 		    id[0] == DS1822_FAMILY_CODE ) { 
 			// temperature sensor
 			
-			uart_putc ('\r');
+			printf ("\r");
 			
 			ow_byte_wr( DS18X20_READ );           // read command
 			
@@ -204,14 +204,14 @@ uint8_t DS18X20_read_meas_all_verbose( void )
 			} else {
 				printf( " CRC O.K. " );
 			}
-			uart_putc ('\r');
+			printf ("\r");
 		
 			meas = sp[0]; // LSB Temp. from Scrachpad-Data
 			meas |= (uint16_t) (sp[1] << 8); // MSB
 			
 			printf( " T_raw=");
-			uart_puthex_byte( (uint8_t)(meas >> 8) );
-			uart_puthex_byte( (uint8_t)meas );
+			printf("%x", (uint8_t)(meas >> 8) );
+			printf("%x", (uint8_t)meas );
 			printf( " " );
 
 			if( id[0] == DS18S20_FAMILY_CODE ) { // 18S20
@@ -243,15 +243,15 @@ uint8_t DS18X20_read_meas_all_verbose( void )
 				printf("* INVALID *");
 			} else {
 				printf(" conv: ");
-				uart_put_int(decicelsius);
+				printf("%i", decicelsius);
 				printf(" deci°C ");
 				DS18X20_format_from_decicelsius( decicelsius, s, 10 );
 				printf(" fmt: ");
-				uart_puts(s);
+				printf(s);
 				printf(" °C ");
 			}
 
-			uart_puts("\r");
+			printf("\r");
 			
 		} // if meas-sensor
 		
