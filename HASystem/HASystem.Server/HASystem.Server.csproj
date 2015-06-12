@@ -44,6 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DHCP\DHCPData.cs" />
+    <Compile Include="DHCP\DHCPMessage.cs" />
+    <Compile Include="DHCP\DHCPMessageType.cs" />
+    <Compile Include="DHCP\DHCPOption.cs" />
+    <Compile Include="DHCP\DHCPServer.cs" />
+    <Compile Include="DHCP\DHCPService.cs" />
+    <Compile Include="DHCP\DHCPTransaction.cs" />
+    <Compile Include="DHCP\UDPAsync.cs" />
+    <Compile Include="DHCP\UDPState.cs" />
     <Compile Include="IStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Status.cs" />
