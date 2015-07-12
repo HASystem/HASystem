@@ -81,6 +81,10 @@
       <Project>{2213650e-1e16-4b5a-ad48-bb070e3c9b9a}</Project>
       <Name>HASystem.Server.Remote</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HASystem.Server\HASystem.Server.csproj">
+      <Project>{74e8dfc2-be5b-478b-b8af-df835ae49e06}</Project>
+      <Name>HASystem.Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

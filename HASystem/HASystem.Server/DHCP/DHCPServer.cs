@@ -8,51 +8,61 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
 using System.Net;
-using System.Net.Sockets;
-using System.IO;
-using System.Threading;
+using System.Text;
 
 namespace HASystem.Server.DHCP
 {
     public class DHCPServer
     {
         #region fields
+
         // udp send and receive classs
         private UDPAsync udp;
-        private string NetCard;
-        #endregion
+
+        private IPAddress endpointIp;
+
+        #endregion fields
 
         #region events
+
         public event AnnouncedEventHandler Announced;
+
         public event RequestEventHandler Request;
-        #endregion
+
+        #endregion events
 
         #region delegates
+
         public delegate void AnnouncedEventHandler(DHCPTransaction d_DHCP, string MacId);
+
         public delegate void ReleasedEventHandler();
+
         public delegate void RequestEventHandler(DHCPTransaction d_DHCP, string MacId);
+
         public delegate void AssignedEventHandler(string IPAdd, string MacID);
-        #endregion
+
+        #endregion delegates
 
         #region ctor
-        public DHCPServer(string netCard)
+
+        public DHCPServer(IPAddress endpointIp)
         {
-            NetCard = netCard;
+            this.endpointIp = endpointIp;
         }
-        #endregion
+
+        #endregion ctor
 
         #region public methods
+
         public void StartDHCPServer()
         {
             // Function to start the DHCP server
             // Port 67 to receive, 68 to send
             try
-            {   
+            {
                 // Start the DHCP server
-                udp = new UDPAsync(67, 68, NetCard);
+                udp = new UDPAsync(67, 68, endpointIp);
                 udp.dataReceived += new UDPAsync.DataReceivedEventHandler(UDPDataReceived);
             }
             catch (Exception)
@@ -71,7 +81,6 @@ namespace HASystem.Server.DHCP
             byte[] hostId;
             byte[] dataToSend;
 
-
             //we shall leave everything as is structure wise
             //shall CHANGE the type to OFFER
             //shall set the client's IP-Address
@@ -81,10 +90,10 @@ namespace HASystem.Server.DHCP
                 transaction.Message.D_op = 2;
 
                 //subnet
-                subnet = IPAddress.Parse(transaction.Data.SubMask).GetAddressBytes();
+                subnet = transaction.Data.SubMask.GetAddressBytes();
 
                 //create your ip address
-                transaction.Message.D_yiaddr = IPAddress.Parse(transaction.Data.IPAddr).GetAddressBytes();
+                transaction.Message.D_yiaddr = transaction.Data.IPAddr.GetAddressBytes();
 
                 //Host ID
                 hostId = System.Text.Encoding.ASCII.GetBytes(transaction.Data.ServerName);
@@ -108,15 +117,17 @@ namespace HASystem.Server.DHCP
                 dataToSend = null;
             }
         }
-       
+
         public void Dispose()
         {
             if (udp != null) { udp.StopListener(); }
             udp = null;
         }
-        #endregion
+
+        #endregion public methods
 
         #region private methods
+
         private string ByteToString(byte[] dataByte, byte length)
         {
             string dataString;
@@ -235,11 +246,11 @@ namespace HASystem.Server.DHCP
                         // discover Msg Has been sent
                         Announced(transaction, macId);
                         break;
+
                     case DHCPMessageType.DHCPREQUEST:
                         Request(transaction, macId);
                         break;
                 }
-
             }
             catch (Exception)
             {
@@ -263,7 +274,7 @@ namespace HASystem.Server.DHCP
                 transaction.Message.D_options = null;
                 CreateOptionElement(DHCPOption.DHCPMessageTYPE, new byte[] { (byte)optionReplayMessage }, ref transaction.Message.D_options);
                 //server identifier, my IP
-                serverIp = IPAddress.Parse(transaction.Data.MyIP).GetAddressBytes();
+                serverIp = transaction.Data.MyIP.GetAddressBytes();
                 CreateOptionElement(DHCPOption.ServerIdentifier, serverIp, ref transaction.Message.D_options);
 
                 // parameterRequestList contains the option data in a byte that is requested by the unit
@@ -273,26 +284,31 @@ namespace HASystem.Server.DHCP
                     switch ((DHCPOption)i)
                     {
                         case DHCPOption.SubnetMask:
-                            ipAddress = IPAddress.Parse(transaction.Data.SubMask).GetAddressBytes();
+                            ipAddress = transaction.Data.SubMask.GetAddressBytes();
                             break;
+
                         case DHCPOption.Router:
-                            ipAddress = IPAddress.Parse(transaction.Data.RouterIP).GetAddressBytes();
+                            ipAddress = transaction.Data.RouterIP.GetAddressBytes();
                             break;
+
                         case DHCPOption.DomainNameServer:
-                            ipAddress = IPAddress.Parse(transaction.Data.DomainIP).GetAddressBytes();
+                            ipAddress = transaction.Data.DomainIP.GetAddressBytes();
                             break;
+
                         case DHCPOption.DomainName:
                             ipAddress = System.Text.Encoding.ASCII.GetBytes(transaction.Data.ServerName);
                             break;
+
                         case DHCPOption.ServerIdentifier:
-                            ipAddress = IPAddress.Parse(transaction.Data.MyIP).GetAddressBytes();
+                            ipAddress = transaction.Data.MyIP.GetAddressBytes();
                             break;
+
                         case DHCPOption.LogServer:
                             ipAddress = System.Text.Encoding.ASCII.GetBytes(transaction.Data.LogServerIP);
                             break;
+
                         case DHCPOption.NetBIOSoverTCPIPNameServer:
                             break;
-
                     }
 
                     if (ipAddress != null)
@@ -326,7 +342,6 @@ namespace HASystem.Server.DHCP
                 leaseTime = null;
                 parameterRequestList = null;
                 ipAddress = null;
-
             }
         }
 
@@ -366,7 +381,6 @@ namespace HASystem.Server.DHCP
             {
                 mArray = null;
             }
-
         }
 
         private void AddOptionElement(byte[] source, ref byte[] target)
@@ -393,7 +407,7 @@ namespace HASystem.Server.DHCP
 
         private void CreateOptionElement(DHCPOption option, byte[] data, ref byte[] target)
         {
-            //create an option message 
+            //create an option message
             //shall always append at the end of the message
 
             byte[] tOption;
@@ -419,6 +433,7 @@ namespace HASystem.Server.DHCP
                 // Console.WriteLine(ex.Message);
             }
         }
-        #endregion
+
+        #endregion private methods
     }
 }

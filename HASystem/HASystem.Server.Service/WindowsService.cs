@@ -28,6 +28,8 @@ namespace HASystem.Server.Service
             //so set to exe location
             Directory.SetCurrentDirectory(Path.GetDirectoryName(typeof(WindowsService).Assembly.Location));
 
+            Manager.Instance.Start();
+
             foreach (var serviceType in typeof(Hook).Assembly.GetTypes().Where(p => p.GetCustomAttribute<ServiceContractAttribute>() != null))
             {
                 var host = new WebServiceHost(serviceType);

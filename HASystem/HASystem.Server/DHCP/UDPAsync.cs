@@ -7,49 +7,53 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using System.IO;
+using System.Text;
 using System.Threading;
-using Microsoft.Win32;
-
 
 namespace HASystem.Server.DHCP
 {
-   public class UDPAsync
-   {
+    public class UDPAsync
+    {
         #region fields
+
         private Int32 portToListen = 0;
         private Int32 portToSend = 0;
-        private string receiveCardIp;
+        private IPAddress endpointIp;
         private bool isListening;
 
         // callbacks for send/receive
         private UDPState callback;
-        #endregion
+
+        #endregion fields
 
         #region events
+
         public delegate void DataReceivedEventHandler(byte[] data, IPEndPoint endPoint);
+
         public event DataReceivedEventHandler dataReceived;
+
         public delegate void ErrorEventHandler(string message);
-        #endregion
+
+        #endregion events
 
         #region ctor
+
         public UDPAsync()
         {
             isListening = false;
         }
 
-        public UDPAsync(Int32 portToListen, Int32 portToSend, string receiveCardIp)
+        public UDPAsync(Int32 portToListen, Int32 portToSend, IPAddress endpointIp)
         {
             try
             {
                 isListening = false;
                 this.portToListen = portToListen;
                 this.portToSend = portToSend;
-                this.receiveCardIp = receiveCardIp;
-                
+                this.endpointIp = endpointIp;
+
                 StartListener();
             }
             catch (Exception)
@@ -72,7 +76,6 @@ namespace HASystem.Server.DHCP
 
                 callback.Client = null;
                 callback.EndPoint = null;
-                receiveCardIp = null;
             }
             catch (Exception)
             {
@@ -80,9 +83,11 @@ namespace HASystem.Server.DHCP
                 //Console.WriteLine(ex.Message);
             }
         }
-        #endregion
+
+        #endregion ctor
 
         #region public methods
+
         public void SendData(byte[] data)
         {
             //function to send data as a byte stream to a remote socket
@@ -113,7 +118,6 @@ namespace HASystem.Server.DHCP
 
                 callback.Client = null;
                 callback.EndPoint = null;
-
             }
             catch (Exception)
             {
@@ -121,9 +125,11 @@ namespace HASystem.Server.DHCP
                 //Console.WriteLine(ex.Message);
             }
         }
-        #endregion
+
+        #endregion public methods
 
         #region private methods
+
         private void OnDataSent(IAsyncResult asyn)
         {
             // This is the call back function, which will be invoked when a client is connected
@@ -199,7 +205,7 @@ namespace HASystem.Server.DHCP
 
         private void StartListener()
         {
-            //function to start the listener 
+            //function to start the listener
             //if the the listner is active, destroy it and restart
             // shall mark the flag that the listner is active
 
@@ -210,11 +216,8 @@ namespace HASystem.Server.DHCP
             {
                 isListening = false;
 
-                //resolve the net card ip address
-                ipAddress = IPAddress.Parse(receiveCardIp);
-
                 //get the ipEndPoint
-                ipLocalEndPoint = new IPEndPoint(ipAddress, portToListen);
+                ipLocalEndPoint = new IPEndPoint(endpointIp, portToListen);
 
                 // if the udpclient interface is active destroy
                 if (callback.Client != null)
@@ -256,6 +259,7 @@ namespace HASystem.Server.DHCP
                 }
             }
         }
-        #endregion
+
+        #endregion private methods
     }
 }
