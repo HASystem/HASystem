@@ -1,12 +1,10 @@
-﻿using System;
+﻿using HASystem.Server.Remote.Wcf;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.ServiceModel;
-using System.ServiceModel.Description;
 using System.ServiceModel.Web;
 using System.ServiceProcess;
 using System.Text;
@@ -30,16 +28,12 @@ namespace HASystem.Server.Service
             //so set to exe location
             Directory.SetCurrentDirectory(Path.GetDirectoryName(typeof(WindowsService).Assembly.Location));
 
-            //TODO: detect / read possible endpoints
-
-            //TODO: search all services
-            //TODO: start all found services
-
-            var serviceType = typeof(Status);
-            WebServiceHost host = new WebServiceHost(serviceType, new Uri("http://localhost/v1/"));
-            ServiceEndpoint endpoint = host.AddServiceEndpoint(typeof(IStatus), new WebHttpBinding(), "/status");
-            host.Open();
-            hostedServices.Add(host);
+            foreach (var serviceType in typeof(Hook).Assembly.GetTypes().Where(p => p.GetCustomAttribute<ServiceContractAttribute>() != null))
+            {
+                var host = new WebServiceHost(serviceType);
+                host.Open();
+                hostedServices.Add(host);
+            }
         }
 
         protected override void OnStop()
