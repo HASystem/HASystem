@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HASystem.Server
+namespace HASystem.Server.Logic
 {
     public class Device
     {
@@ -18,19 +19,25 @@ namespace HASystem.Server
         public DeviceState State
         {
             get;
-            private set;
+            set;
+        }
+
+        public DeviceHardware DeviceHardware
+        {
+            get;
+            set;
         }
 
         public PhysicalAddress MACAddress
         {
             get;
-            private set;
+            set;
         }
 
-        public System.Net.IPAddress IPAddress
+        public IPAddress IPAddress
         {
             get;
-            private set;
+            set;
         }
     }
 }

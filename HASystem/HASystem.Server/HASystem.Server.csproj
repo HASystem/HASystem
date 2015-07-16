@@ -41,8 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Device.cs" />
-    <Compile Include="DeviceState.cs" />
+    <Compile Include="Logic\ComponentConfig.cs" />
+    <Compile Include="Logic\Components\BinaryAnd.cs" />
+    <Compile Include="Logic\Components\BinarySink.cs" />
+    <Compile Include="Logic\Components\BinarySource.cs" />
+    <Compile Include="Logic\Dispatcher.cs" />
+    <Compile Include="Logic\GenericValue.cs" />
+    <Compile Include="Logic\LogicInput.cs" />
+    <Compile Include="Logic\LogicOutput.cs" />
+    <Compile Include="Logic\Value.cs" />
+    <Compile Include="Physical\Components\BinaryInOut.cs" />
+    <Compile Include="Physical\Components\PhysicalComponent.cs" />
+    <Compile Include="Physical\Components\Port.cs" />
+    <Compile Include="Logic\Device.cs" />
+    <Compile Include="Logic\DeviceHardware.cs" />
+    <Compile Include="Logic\DeviceState.cs" />
+    <Compile Include="Physical\Devices\OurFirstDevice.cs" />
+    <Compile Include="Physical\Devices\PhysicalDevice.cs" />
     <Compile Include="DHCP\DHCPData.cs" />
     <Compile Include="DHCP\DHCPMessage.cs" />
     <Compile Include="DHCP\DHCPMessageType.cs" />
@@ -52,10 +67,12 @@
     <Compile Include="DHCP\DHCPTransaction.cs" />
     <Compile Include="DHCP\UDPAsync.cs" />
     <Compile Include="DHCP\UDPState.cs" />
-    <Compile Include="House.cs" />
+    <Compile Include="Logic\House.cs" />
+    <Compile Include="Logic\LogicComponent.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

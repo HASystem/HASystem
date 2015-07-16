@@ -33,7 +33,7 @@ namespace HASystem.Server.Service
             foreach (var serviceType in typeof(Hook).Assembly.GetTypes().Where(p => p.GetCustomAttribute<ServiceContractAttribute>() != null))
             {
                 var host = new WebServiceHost(serviceType);
-                host.Open();
+                //host.Open();
                 hostedServices.Add(host);
             }
         }

@@ -137,7 +137,7 @@ namespace HASystem.Server.DHCP
             try
             {
                 //get the data
-                UdpClient client = (UdpClient)asyn;
+                UdpClient client = ((UDPState)asyn.AsyncState).Client;
                 // stop the send call back
                 client.EndSend(asyn);
             }
