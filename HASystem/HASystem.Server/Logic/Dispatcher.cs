@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HASystem.Server.Logic.DispatcherTasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,33 +10,32 @@ namespace HASystem.Server.Logic
 {
     public class Dispatcher
     {
-        private LinkedList<LogicComponent> openComponents = new LinkedList<LogicComponent>();
+        private LinkedList<IDispatcherTask> taskQueue = new LinkedList<IDispatcherTask>();
         private Thread processingThread = null;
         private System.Threading.ManualResetEventSlim threadInterrupt = new ManualResetEventSlim(false);
 
-        public DateTime LastDispatch
+        public void Enqueue(IDispatcherTask task)
         {
-            get;
-            protected set;
-        }
-
-        public void Enqueue(LogicComponent component)
-        {
-            lock (openComponents)
+            lock (taskQueue)
             {
-                if (openComponents.Contains(component))
-                    return;
-
-                openComponents.AddLast(component);
+                taskQueue.AddLast(task);
                 threadInterrupt.Set();
             }
         }
 
-        public void RemoveComponent(LogicComponent component)
+        public void RemoveTasksForComponent(LogicComponent component)
         {
-            lock (openComponents)
+            lock (taskQueue)
             {
-                openComponents.Remove(component);
+                LinkedListNode<IDispatcherTask> current = taskQueue.First;
+                while (current != null)
+                {
+                    current = current.Next;
+                    if (current.Previous.Value.ConcerningComponent == component)
+                    {
+                        taskQueue.Remove(current.Previous);
+                    }
+                }
             }
         }
 
@@ -60,27 +60,25 @@ namespace HASystem.Server.Logic
             {
                 try
                 {
-                    if (openComponents.First == null)
+                    if (taskQueue.First == null)
                     {
-                        threadInterrupt.Wait(500);
+                        threadInterrupt.Wait(5000);
                     }
                     else
                     {
-                        LogicComponent component = null;
-                        lock (openComponents)
+                        IDispatcherTask task = null;
+                        lock (taskQueue)
                         {
-                            component = openComponents.First.Value;
-                            openComponents.RemoveFirst();
+                            task = taskQueue.First.Value;
+                            taskQueue.RemoveFirst();
 
-                            if (openComponents.First == null)
+                            if (taskQueue.First == null)
                             {
                                 //this was the last component
                                 threadInterrupt.Reset();
                             }
                         }
-                        DateTime lastModified = component.LastModified;
-                        component.Update();
-                        LastDispatch = lastModified;
+                        task.Execute();
                     }
                 }
                 catch (ThreadAbortException)

@@ -45,7 +45,11 @@
     <Compile Include="Logic\Components\BinaryAnd.cs" />
     <Compile Include="Logic\Components\BinarySink.cs" />
     <Compile Include="Logic\Components\BinarySource.cs" />
+    <Compile Include="Logic\Connection.cs" />
     <Compile Include="Logic\Dispatcher.cs" />
+    <Compile Include="Logic\DispatcherTasks\IDispatcherTask.cs" />
+    <Compile Include="Logic\DispatcherTasks\UpdateComponentTask.cs" />
+    <Compile Include="Logic\DispatcherTasks\UpdateValueTask.cs" />
     <Compile Include="Logic\GenericValue.cs" />
     <Compile Include="Logic\LogicInput.cs" />
     <Compile Include="Logic\LogicOutput.cs" />

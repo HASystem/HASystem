@@ -18,16 +18,13 @@ namespace HASystem.Server.Logic.Components
             EnsureGates();
 
             bool value = true;
-            int j = 0;
             foreach (LogicInput input in Inputs)
             {
                 if (((GenericValue<bool>)input.Value) != true)
                 {
-                    Console.WriteLine("input " + j + " is false");
                     value = false;
                     break;
                 }
-                j++;
             }
 
             foreach (LogicOutput output in Outputs)

@@ -119,5 +119,12 @@ namespace HASystem.Server.Logic
         {
             return !(a == b);
         }
+
+        public override string ToString()
+        {
+            if (Value == null)
+                return "";
+            return Value.ToString();
+        }
     }
 }

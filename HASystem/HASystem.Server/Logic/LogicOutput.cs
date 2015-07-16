@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HASystem.Server.Logic.DispatcherTasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,9 @@ namespace HASystem.Server.Logic
                 if (Object.Equals(this.value, value))
                     return;
                 this.value = value;
+
+                SendValueToConnections();
+
                 SetDirty();
             }
         }
@@ -86,7 +90,7 @@ namespace HASystem.Server.Logic
                     connections.Add(input);
                 }
             }
-            input.Component.SetDirty();
+            SendValueToConnection(input, Value);
         }
 
         public bool RemoveConnection(LogicInput input)
@@ -101,7 +105,7 @@ namespace HASystem.Server.Logic
                 lock (connections)
                 {
                     input.ConnectedBy = null;
-                    input.Component.SetDirty();
+                    SendValueToConnection(input, null);
                     return connections.Remove(input);
                 }
             }
@@ -115,7 +119,7 @@ namespace HASystem.Server.Logic
                 {
                     connection.ConnectedBy = null;
                     connections.Remove(connection);
-                    connection.Component.SetDirty();
+                    SendValueToConnection(connection, Value);
                 }
             }
         }
@@ -123,14 +127,27 @@ namespace HASystem.Server.Logic
         protected void SetDirty()
         {
             LastModified = DateTime.UtcNow;
+        }
 
+        private void SendValueToConnections()
+        {
+            SendValueToConnections(Value);
+        }
+
+        private void SendValueToConnections(Value value)
+        {
             lock (connections)
             {
                 foreach (LogicInput connection in connections)
                 {
-                    connection.Component.SetDirty();
+                    SendValueToConnection(connection, value);
                 }
             }
+        }
+
+        private void SendValueToConnection(LogicInput connection, Value value)
+        {
+            Component.House.EnqueueTask(new UpdateValueTask(connection, value));
         }
     }
 }

@@ -65,10 +65,14 @@ namespace HASystem.Server
             System.Threading.Thread.Sleep(2000);
 
             src1.Outputs[0].AddConnection(and.Inputs[0]);
-            src2.Outputs[2].AddConnection(and.Inputs[1]);
+            src2.Outputs[0].AddConnection(and.Inputs[1]);
 
             BinarySink sink = new BinarySink();
             House.AddComponent(sink);
+
+            System.Threading.Thread.Sleep(2000);
+
+            and.Outputs[0].AddConnection(sink.Inputs[0]);
         }
 
 #endif

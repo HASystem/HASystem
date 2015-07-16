@@ -26,6 +26,9 @@ namespace HASystem.Server.Logic.Components
             {
                 current = 0;
             }
+
+            if (Outputs.Length == 3)
+                current = 0;
             Outputs[current].Value = new GenericValue<bool>(true);
         }
 
@@ -36,7 +39,7 @@ namespace HASystem.Server.Logic.Components
 
         public BinarySource()
         {
-            Timer timer = new Timer(new TimerCallback((o) => { Update(); }), null, 1000, 5000);
+            Timer timer = new Timer(new TimerCallback((o) => { Update(); }), null, 1000, 1000);
         }
 
         public void EnsureGates()

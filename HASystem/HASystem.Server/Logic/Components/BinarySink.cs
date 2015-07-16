@@ -17,11 +17,16 @@ namespace HASystem.Server.Logic.Components
         {
             EnsureGates();
 
-            foreach (LogicInput input in Inputs)
+            for (int i = 0; i < Inputs.Length; i++)
             {
+                LogicInput input = Inputs[i];
                 if ((GenericValue<bool>)input.Value)
                 {
-                    System.Diagnostics.Debug.WriteLine(true);
+                    System.Diagnostics.Debug.WriteLine(i + " " + true);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine(i + " " + false);
                 }
             }
         }
@@ -33,7 +38,7 @@ namespace HASystem.Server.Logic.Components
 
         public void EnsureGates()
         {
-            int inputCount = Config.GetValue("Inputs", 2);
+            int inputCount = Config.GetValue("Inputs", 1);
             if (Inputs.Length != inputCount)
             {
                 LogicInput[] inputs = new LogicInput[inputCount];

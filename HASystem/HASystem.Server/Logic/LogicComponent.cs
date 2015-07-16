@@ -1,4 +1,5 @@
-﻿using HASystem.Server.Physical.Components;
+﻿using HASystem.Server.Logic.DispatcherTasks;
+using HASystem.Server.Physical.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace HASystem.Server.Logic
         {
             LastModified = DateTime.UtcNow;
 
-            House.EnqueueForUpdate(this);
+            House.EnqueueTask(new UpdateComponentTask(this));
         }
 
         public LogicInput[] Inputs

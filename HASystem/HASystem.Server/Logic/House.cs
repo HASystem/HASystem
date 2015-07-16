@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HASystem.Server.Logic.DispatcherTasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,7 +49,7 @@ namespace HASystem.Server.Logic
 
             component.Init();
 
-            EnqueueForUpdate(component);
+            EnqueueTask(new UpdateComponentTask(component));
         }
 
         public void RemoveComponent(LogicComponent component)
@@ -64,12 +65,12 @@ namespace HASystem.Server.Logic
             component.RemoveOutputConnections();
             component.RemoveInputConnections();
 
-            dispatcher.RemoveComponent(component);
+            dispatcher.RemoveTasksForComponent(component);
         }
 
-        public void EnqueueForUpdate(LogicComponent component)
+        public void EnqueueTask(IDispatcherTask task)
         {
-            dispatcher.Enqueue(component);
+            dispatcher.Enqueue(task);
         }
     }
 }

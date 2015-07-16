@@ -34,14 +34,8 @@ namespace HASystem.Server.Logic
 
         public Value Value
         {
-            get
-            {
-                if (ConnectedBy == null)
-                {
-                    return null;
-                }
-                return ConnectedBy.Value;
-            }
+            get;
+            internal set;
         }
 
         public LogicInput(LogicComponent component, int index, Type inputType)
