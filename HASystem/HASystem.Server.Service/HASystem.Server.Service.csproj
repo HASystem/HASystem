@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -76,10 +77,6 @@
     <ProjectReference Include="..\HASystem.Server.Remote.Wcf\HASystem.Server.Remote.Wcf.csproj">
       <Project>{e4b8dfde-4e23-4990-bb64-eeea32086b6f}</Project>
       <Name>HASystem.Server.Remote.Wcf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HASystem.Server.Remote\HASystem.Server.Remote.csproj">
-      <Project>{2213650e-1e16-4b5a-ad48-bb070e3c9b9a}</Project>
-      <Name>HASystem.Server.Remote</Name>
     </ProjectReference>
     <ProjectReference Include="..\HASystem.Server\HASystem.Server.csproj">
       <Project>{74e8dfc2-be5b-478b-b8af-df835ae49e06}</Project>

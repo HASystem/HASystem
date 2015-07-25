@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
+
 using System.Text;
+
 using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic
@@ -45,7 +48,10 @@ namespace HASystem.Server.Logic
                 throw new InvalidOperationException("component is already assigned");
 
             component.House = this;
-            logicComponents.Add(component);
+            lock (logicComponents)
+            {
+                logicComponents.Add(component);
+            }
 
             component.Init();
 
@@ -60,7 +66,11 @@ namespace HASystem.Server.Logic
                 throw new InvalidOperationException("component is not assigned to this");
 
             component.House = null;
-            logicComponents.Remove(component);
+
+            lock (logicComponents)
+            {
+                logicComponents.Remove(component);
+            }
 
             component.RemoveOutputConnections();
             component.RemoveInputConnections();
@@ -71,6 +81,30 @@ namespace HASystem.Server.Logic
         public void EnqueueTask(IDispatcherTask task)
         {
             dispatcher.Enqueue(task);
+        }
+
+        public void AddDevice(Device device)
+        {
+            if (device == null)
+                throw new ArgumentNullException("device");
+
+            lock (devices)
+            {
+                if (devices.Where(p => p.MACAddress == device.MACAddress).FirstOrDefault() != null)
+                {
+                    throw new ArgumentException("device was already added");
+                }
+                devices.Add(device);
+            }
+        }
+
+        public void RemoveDevice(PhysicalAddress macAddress)
+        {
+            lock (devices)
+            {
+                Device device = devices.Where(p => Object.Equals(p.MACAddress, macAddress)).FirstOrDefault();
+                devices.Remove(device);
+            }
         }
     }
 }

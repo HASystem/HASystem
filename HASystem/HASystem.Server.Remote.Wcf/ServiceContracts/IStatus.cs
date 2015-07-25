@@ -4,18 +4,16 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+
 using System.Threading.Tasks;
 
-namespace HASystem.Server.Remote.Wcf
+namespace HASystem.Server.Remote.Wcf.ServiceContracts
 {
     [ServiceContract]
-    public class Status : IStatus
+    public interface IStatus
     {
         [OperationContract]
         [WebGet(UriTemplate = "/")]
-        public string GetStatus()
-        {
-            return "running";
-        }
+        string GetStatus();
     }
 }

@@ -1,9 +1,14 @@
 ﻿using HASystem.Server.Logic;
 using HASystem.Server.Logic.Components;
+
 using System;
+
 using System.Collections.Generic;
+
 using System.Linq;
+
 using System.Text;
+
 using System.Threading.Tasks;
 
 namespace HASystem.Server
@@ -11,6 +16,7 @@ namespace HASystem.Server
     public class Manager
     {
         private static Manager instance = new Manager();
+        private LogicComponentsFactory logicComponentsFactory = new LogicComponentsFactory();
 
         public House House
         {
@@ -40,6 +46,8 @@ namespace HASystem.Server
 
         public void Start()
         {
+            logicComponentsFactory.Init();
+
             House.Start();
             DhcpService.StartService();
 
@@ -54,25 +62,24 @@ namespace HASystem.Server
 
         private void SetupDemo()
         {
-            BinarySource src1 = new BinarySource();
-            BinarySource src2 = new BinarySource();
-            House.AddComponent(src1);
-            src2.Config["Outputs"] = "3";
+            BinaryIn binaryIn = new BinaryIn();
+            BinaryIn src2 = new BinaryIn();
+            House.AddComponent(binaryIn);
             House.AddComponent(src2);
             BinaryAnd and = new BinaryAnd();
             House.AddComponent(and);
 
             System.Threading.Thread.Sleep(2000);
 
-            src1.Outputs[0].AddConnection(and.Inputs[0]);
+            binaryIn.Outputs[0].AddConnection(and.Inputs[0]);
             src2.Outputs[0].AddConnection(and.Inputs[1]);
 
-            BinarySink sink = new BinarySink();
-            House.AddComponent(sink);
+            BinaryOut binaryOut = new BinaryOut();
+            House.AddComponent(binaryOut);
 
             System.Threading.Thread.Sleep(2000);
 
-            and.Outputs[0].AddConnection(sink.Inputs[0]);
+            and.Outputs[0].AddConnection(binaryOut.Inputs[0]);
         }
 
 #endif

@@ -1,22 +1,20 @@
 ﻿using System;
+
 using System.Collections.Generic;
+
 using System.Linq;
+
 using System.Text;
+
 using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic.Components
 {
+    [Component("{25EADD1C-5ED7-46EF-B178-1559747BAF27}")]
     internal class BinaryAnd : LogicComponent
     {
-        public override Guid ComponentType
-        {
-            get { return Guid.NewGuid(); } //TODO: valid implementation
-        }
-
         public override void Update()
         {
-            EnsureGates();
-
             bool value = true;
             foreach (LogicInput input in Inputs)
             {
@@ -35,11 +33,21 @@ namespace HASystem.Server.Logic.Components
 
         public override void Init()
         {
-            EnsureGates();
+            Outputs = new LogicOutput[] { new LogicOutput(this, 0, typeof(bool)) };
+
+            EnsureInputGates();
         }
 
-        private void EnsureGates()
+        protected override void OnComponenentConfigChanged(ComponentConfig oldValue, ComponentConfig newValue)
         {
+            EnsureInputGates();
+
+            base.OnComponenentConfigChanged(oldValue, newValue);
+        }
+
+        private void EnsureInputGates()
+        {
+            //do we allow multiple input ports?
             int inputCount = Config.GetValue("Inputs", 2);
             if (Inputs.Length != inputCount)
             {
@@ -49,17 +57,6 @@ namespace HASystem.Server.Logic.Components
                     inputs[i] = new LogicInput(this, i, typeof(bool));
                 }
                 Inputs = inputs;
-            }
-
-            int outputCount = Config.GetValue("Outputs", 1);
-            if (Outputs.Length != outputCount)
-            {
-                LogicOutput[] outputs = new LogicOutput[outputCount];
-                for (int i = 0; i < outputs.Length; i++)
-                {
-                    outputs[i] = new LogicOutput(this, i, typeof(bool));
-                }
-                Outputs = outputs;
             }
         }
     }

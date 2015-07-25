@@ -41,10 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogicComponentsFactory.cs" />
+    <Compile Include="Logic\ComponentAttribute.cs" />
     <Compile Include="Logic\ComponentConfig.cs" />
     <Compile Include="Logic\Components\BinaryAnd.cs" />
-    <Compile Include="Logic\Components\BinarySink.cs" />
-    <Compile Include="Logic\Components\BinarySource.cs" />
+    <Compile Include="Logic\Components\BinaryOut.cs" />
+    <Compile Include="Logic\Components\BinaryIn.cs" />
     <Compile Include="Logic\Connection.cs" />
     <Compile Include="Logic\Dispatcher.cs" />
     <Compile Include="Logic\DispatcherTasks\IDispatcherTask.cs" />

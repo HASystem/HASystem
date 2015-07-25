@@ -10,10 +10,23 @@ namespace HASystem.Server.Logic
 {
     public class Device
     {
+        private PhysicalAddress macAddress = PhysicalAddress.None;
+
+        public PhysicalAddress MACAddress
+        {
+            get { return macAddress; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                macAddress = value;
+            }
+        }
+
         public string Name
         {
             get;
-            private set;
+            set;
         }
 
         public DeviceState State
@@ -23,12 +36,6 @@ namespace HASystem.Server.Logic
         }
 
         public DeviceHardware DeviceHardware
-        {
-            get;
-            set;
-        }
-
-        public PhysicalAddress MACAddress
         {
             get;
             set;

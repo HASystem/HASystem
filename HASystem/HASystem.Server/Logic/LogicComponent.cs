@@ -3,8 +3,9 @@ using HASystem.Server.Physical.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic
 {
@@ -16,6 +17,7 @@ namespace HASystem.Server.Logic
         private LogicInput[] inputs = emptyInputs;
         private LogicOutput[] outputs = emptyOutputs;
         private ComponentConfig config = null;
+        private PhysicalComponent mappedComponent;
 
         public int Id
         {
@@ -23,9 +25,15 @@ namespace HASystem.Server.Logic
             private set;
         }
 
-        public abstract Guid ComponentType
+        public Guid ComponentType
         {
-            get;
+            get
+            {
+                ComponentAttribute att = GetType().GetCustomAttribute<ComponentAttribute>(true);
+                if (att == null)
+                    throw new InvalidOperationException("Component has no Component-Attribute");
+                return att.Guid;
+            }
         }
 
         public DateTime LastModified
@@ -43,8 +51,8 @@ namespace HASystem.Server.Logic
         //TODO: unsure if we can solve this with this solution
         public PhysicalComponent MappedComponent
         {
-            get;
-            set;
+            get { return mappedComponent; }
+            internal set { mappedComponent = value; }
         }
 
         public void SetDirty()
