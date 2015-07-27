@@ -209,7 +209,6 @@ namespace HASystem.Server.DHCP
             //if the the listner is active, destroy it and restart
             // shall mark the flag that the listner is active
 
-            IPAddress ipAddress;
             IPEndPoint ipLocalEndPoint;
 
             try
@@ -254,7 +253,6 @@ namespace HASystem.Server.DHCP
                 }
                 else
                 {
-                    ipAddress = null;
                     ipLocalEndPoint = null;
                 }
             }

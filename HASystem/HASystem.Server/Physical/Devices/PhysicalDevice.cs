@@ -15,9 +15,10 @@ namespace HASystem.Server.Physical.Devices
             get;
         }
 
-        public abstract PhysicalComponent[] Components
+        public PhysicalComponent[] Components
         {
             get;
+            protected set;
         }
     }
 }

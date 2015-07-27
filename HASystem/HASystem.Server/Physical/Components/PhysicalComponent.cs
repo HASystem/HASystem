@@ -18,7 +18,7 @@ namespace HASystem.Server.Physical.Components
         public PhysicalDevice PhysicalDevice
         {
             get;
-            protected set;
+            private set;
         }
 
         protected PhysicalComponent(PhysicalDevice physicalDevice)
@@ -27,5 +27,7 @@ namespace HASystem.Server.Physical.Components
                 throw new ArgumentNullException("physicalDevice");
             this.PhysicalDevice = physicalDevice;
         }
+
+        //TODO: some kind of test if this component supports a specific logic-component.
     }
 }

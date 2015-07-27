@@ -16,6 +16,11 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
 {
     public class DevicesService : IDevicesService
     {
+        static DevicesService()
+        {
+            Device.InitMapping();
+        }
+
         public Device[] GetAllDevices()
         {
             return Manager.Instance.House.Devices.Select(l => Mapper.Map<Logic.Device, Device>(l)).ToArray();
@@ -26,7 +31,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             PhysicalAddress macAddress;
             try
             {
-                macAddress = PhysicalAddress.Parse(mac); //this could fail
+                macAddress = PhysicalAddress.Parse(mac);
             }
             catch (FormatException ex)
             {
@@ -51,7 +56,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             PhysicalAddress mac;
             try
             {
-                mac = PhysicalAddress.Parse(device.MACAddress); //this could fail
+                mac = PhysicalAddress.Parse(device.MACAddress);
             }
             catch (FormatException ex)
             {
@@ -67,14 +72,10 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             Logic.Device logicDevice = new Logic.Device();
             logicDevice.Name = device.Name;
             logicDevice.MACAddress = mac;
-            if (String.IsNullOrWhiteSpace(device.State) || device.RealState == Logic.DeviceState.Created)
+
+            logicDevice.State = Logic.DeviceState.Offline;
+            if (!String.IsNullOrWhiteSpace(device.IPAddress))
             {
-                logicDevice.State = Logic.DeviceState.Created;
-                logicDevice.IPAddress = IPAddress.None;
-            }
-            else if (device.RealState == Logic.DeviceState.Reserved)
-            {
-                logicDevice.State = Logic.DeviceState.Reserved;
                 IPAddress ip = null;
                 if (IPAddress.TryParse(device.IPAddress, out ip))
                 {
@@ -87,7 +88,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             }
             else
             {
-                throw new WebFaultException<ArgumentException>(new ArgumentNullException("State is not valid"), HttpStatusCode.BadRequest);
+                logicDevice.IPAddress = IPAddress.None;
             }
 
             Manager.Instance.House.AddDevice(logicDevice);
@@ -101,7 +102,16 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             PhysicalAddress macAddress;
             try
             {
-                macAddress = PhysicalAddress.Parse(device.MACAddress); //this could fail
+                macAddress = PhysicalAddress.Parse(mac);
+            }
+            catch (FormatException ex)
+            {
+                throw new WebFaultException<FormatException>(ex, HttpStatusCode.BadRequest);
+            }
+            PhysicalAddress macAddressNew;
+            try
+            {
+                macAddressNew = PhysicalAddress.Parse(device.MACAddress);
             }
             catch (FormatException ex)
             {
@@ -114,15 +124,16 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (String.IsNullOrWhiteSpace(device.Name))
                 throw new WebFaultException<ArgumentNullException>(new ArgumentNullException("Name can not be empty"), HttpStatusCode.BadRequest);
 
-            logicDevice.Name = device.Name;
-            if (!Object.Equals(device.MACAddress, logicDevice.MACAddress)) //do we allow this?
+            if (!Object.Equals(macAddressNew, logicDevice.MACAddress)) //do we allow this?
             {
-                if (Manager.Instance.House.Devices.Where(p => Object.Equals(p.MACAddress, macAddress)).FirstOrDefault() != null)
+                if (Manager.Instance.House.Devices.Where(p => Object.Equals(p.MACAddress, macAddressNew)).FirstOrDefault() != null)
                 {
                     throw new WebFaultException<ArgumentException>(new ArgumentException("mac-address is already used by another device"), HttpStatusCode.Conflict);
                 }
-                logicDevice.MACAddress = PhysicalAddress.Parse(device.MACAddress);
             }
+
+            logicDevice.Name = device.Name;
+            logicDevice.MACAddress = macAddressNew;
             //TODO: ip-address modification
         }
 
@@ -131,14 +142,18 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             PhysicalAddress macAddress;
             try
             {
-                macAddress = PhysicalAddress.Parse(mac); //this could fail
+                macAddress = PhysicalAddress.Parse(mac);
             }
             catch (FormatException ex)
             {
                 throw new WebFaultException<FormatException>(ex, HttpStatusCode.BadRequest);
             }
 
-            Manager.Instance.House.RemoveDevice(macAddress);
+            Logic.Device device = Manager.Instance.House.Devices.Where(p => Object.Equals(p.MACAddress, macAddress)).FirstOrDefault();
+            if (device == null)
+                throw new WebFaultException(HttpStatusCode.NotFound);
+
+            Manager.Instance.House.RemoveDevice(device);
         }
     }
 }

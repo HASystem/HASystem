@@ -22,7 +22,7 @@ namespace HASystem.Server.Logic
         public int Id
         {
             get;
-            private set;
+            internal set;
         }
 
         public Guid ComponentType
@@ -102,7 +102,7 @@ namespace HASystem.Server.Logic
                     {
                         if (config == null)
                         {
-                            config = new ComponentConfig();
+                            config = new ComponentConfig(this);
                         }
                     }
                 }
@@ -112,20 +112,30 @@ namespace HASystem.Server.Logic
             {
                 if (Object.Equals(config, value))
                     return;
-                ComponentConfig old = this.config;
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                if (value.Component != this)
+                    throw new ArgumentException("the config is not for this component");
                 config = value;
-                OnComponenentConfigChanged(old, config);
                 SetDirty();
             }
         }
 
-        public abstract void Update();
+        internal void Update()
+        {
+            if (MappedComponent == null)
+            {
+                UpdateOutput();
+            }
+            else
+            {
+                //do we need to do something here?
+            }
+        }
 
         public abstract void Init();
 
-        protected virtual void OnComponenentConfigChanged(ComponentConfig oldValue, ComponentConfig newValue)
-        {
-        }
+        public abstract void UpdateOutput();
 
         internal void RemoveOutputConnections()
         {

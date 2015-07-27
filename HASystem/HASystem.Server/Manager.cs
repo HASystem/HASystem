@@ -1,14 +1,13 @@
-﻿using HASystem.Server.Logic;
+﻿using HASystem.Server.DHCP;
+using HASystem.Server.Logic;
 using HASystem.Server.Logic.Components;
-
 using System;
-
 using System.Collections.Generic;
-
 using System.Linq;
-
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
-
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HASystem.Server
@@ -18,13 +17,14 @@ namespace HASystem.Server
         private static Manager instance = new Manager();
         private LogicComponentsFactory logicComponentsFactory = new LogicComponentsFactory();
 
-        public House House
-        {
-            get;
-            private set;
-        }
+        private DHCPServer dhcpServer;
+        private IPAddress networkIpMin = IPAddress.Parse("192.168.255.1");
+        private IPAddress networkIpMax = IPAddress.Parse("192.168.255.255");
+        private IPAddress currentIp = IPAddress.Parse("192.168.255.1");
+        private IPAddress adapterIp = IPAddress.Parse("0.0.0.0");
+        private Thread dhcpServerThread = null;
 
-        public DHCP.DHCPService DhcpService
+        public House House
         {
             get;
             private set;
@@ -41,7 +41,6 @@ namespace HASystem.Server
         public Manager()
         {
             House = new House();
-            DhcpService = new DHCP.DHCPService();
         }
 
         public void Start()
@@ -49,13 +48,115 @@ namespace HASystem.Server
             logicComponentsFactory.Init();
 
             House.Start();
-            DhcpService.StartService();
+            StartDhcpService();
 
 #if DEBUG
 
             SetupDemo();
 
 #endif
+        }
+
+        private void StartDhcpService()
+        {
+            //allow data from all network cards
+            dhcpServer = new DHCPServer(adapterIp);
+            dhcpServer.Announced += new DHCPServer.AnnouncedEventHandler(DHCPAnnounced);
+            dhcpServer.Request += new DHCPServer.RequestEventHandler(DHCPRequest);
+
+            dhcpServerThread = new Thread(dhcpServer.StartDHCPServer);
+            dhcpServerThread.Start();
+        }
+
+        private void DHCPAnnounced(DHCPTransaction transaction, string macId)
+        {
+            //options should be filled with valid data
+            transaction.Data.IPAddr = GetIpForDevice(macId);
+            transaction.Data.SubMask = IPAddress.Parse("255.255.255.0");
+            transaction.Data.LeaseTime = 2000;
+            transaction.Data.ServerName = "HASystem";
+            transaction.Data.MyIP = adapterIp;
+            transaction.Data.RouterIP = IPAddress.None;
+            transaction.Data.LogServerIP = "0.0.0.0";
+            transaction.Data.DomainIP = IPAddress.None;
+            dhcpServer.SendDHCPMessage(DHCPMessageType.DHCPOFFER, transaction);
+        }
+
+        private void DHCPRequest(DHCPTransaction transaction, string macId)
+        {
+            //announced so then send the offer
+            transaction.Data.IPAddr = GetIpForDevice(macId);
+            transaction.Data.SubMask = IPAddress.Parse("255.255.255.0");
+            transaction.Data.LeaseTime = 2000;
+            transaction.Data.ServerName = "HASystem";
+            transaction.Data.MyIP = adapterIp;
+            transaction.Data.RouterIP = IPAddress.None;
+            transaction.Data.LogServerIP = "0.0.0.0";
+            transaction.Data.DomainIP = IPAddress.None;
+            dhcpServer.SendDHCPMessage(DHCPMessageType.DHCPACK, transaction);
+        }
+
+        private IPAddress GetIpForDevice(string macAddress)
+        {
+            PhysicalAddress mac = PhysicalAddress.Parse(macAddress);
+
+            Device device = House.Devices.Where(p => Object.Equals(mac, p.MACAddress)).FirstOrDefault();
+            if (device == null)
+            {
+                device = new Device();
+                device.MACAddress = mac;
+                device.IPAddress = IPAddress.None;
+                device.Name = "Autodetect-" + mac;
+                House.AddDevice(device);
+            }
+            else
+            {
+                if (device.IPAddress != IPAddress.None)
+                {
+                    return device.IPAddress;
+                }
+            }
+
+            device.IPAddress = GetNextIp();
+
+            return device.IPAddress;
+        }
+
+        private IPAddress GetNextIp()
+        {
+            IPAddress ipAddress;
+            byte[] ipAsByte;
+            UInt32 parsedIpAddress;
+
+            parsedIpAddress = DHCPService.IPAddressToLongBackwards(currentIp);
+            parsedIpAddress -= 1;
+            do
+            {
+                parsedIpAddress += 1;
+                ipAsByte = new byte[4];
+                ipAsByte[3] = (byte)(parsedIpAddress);
+                ipAsByte[2] = (byte)(parsedIpAddress >> 8);
+                ipAsByte[1] = (byte)(parsedIpAddress >> 16);
+                ipAsByte[0] = (byte)(parsedIpAddress >> 24);
+                ipAddress = new IPAddress(ipAsByte);
+
+                if (ipAddress == networkIpMax)
+                {
+                    ipAddress = networkIpMin;
+                    parsedIpAddress = DHCPService.IPAddressToLongBackwards(networkIpMin);
+                }
+
+                if (House.Devices.Where(p => p.IPAddress == ipAddress).FirstOrDefault() != null) //TODO: some kind of aging
+                {
+                    continue;
+                }
+            }
+            while (DHCPService.CheckAlive(ipAddress) == true);
+
+            //reaching here means that the ip is free
+            currentIp = ipAddress;
+
+            return ipAddress;
         }
 
 #if DEBUG
@@ -69,17 +170,16 @@ namespace HASystem.Server
             BinaryAnd and = new BinaryAnd();
             House.AddComponent(and);
 
-            System.Threading.Thread.Sleep(2000);
-
             binaryIn.Outputs[0].AddConnection(and.Inputs[0]);
             src2.Outputs[0].AddConnection(and.Inputs[1]);
 
             BinaryOut binaryOut = new BinaryOut();
             House.AddComponent(binaryOut);
-
-            System.Threading.Thread.Sleep(2000);
-
             and.Outputs[0].AddConnection(binaryOut.Inputs[0]);
+
+            Logger logger = new Logger();
+            House.AddComponent(logger);
+            and.Outputs[0].AddConnection(logger.Inputs[0]);
         }
 
 #endif

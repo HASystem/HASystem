@@ -1,11 +1,7 @@
 ﻿using System;
-
 using System.Collections.Generic;
-
 using System.Linq;
-
 using System.Text;
-
 using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic.Components
@@ -13,7 +9,7 @@ namespace HASystem.Server.Logic.Components
     [Component("{25EADD1C-5ED7-46EF-B178-1559747BAF27}")]
     internal class BinaryAnd : LogicComponent
     {
-        public override void Update()
+        public override void UpdateOutput()
         {
             bool value = true;
             foreach (LogicInput input in Inputs)
@@ -48,7 +44,7 @@ namespace HASystem.Server.Logic.Components
         private void EnsureInputGates()
         {
             //do we allow multiple input ports?
-            int inputCount = Config.GetValue("Inputs", 2);
+            int inputCount = Config.GetInt32("Inputs", 2);
             if (Inputs.Length != inputCount)
             {
                 LogicInput[] inputs = new LogicInput[inputCount];

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HASystem.Server.Physical.Components
 {
-    public class BinaryInOut : PhysicalComponent
+    public class BinaryIn : PhysicalComponent
     {
         public Port[] SupportedPorts
         {
@@ -15,7 +15,7 @@ namespace HASystem.Server.Physical.Components
             private set;
         }
 
-        public BinaryInOut(PhysicalDevice physicalDevice, Port[] supportedPorts)
+        public BinaryIn(PhysicalDevice physicalDevice, Port[] supportedPorts)
             : base(physicalDevice)
         {
             SupportedPorts = supportedPorts;

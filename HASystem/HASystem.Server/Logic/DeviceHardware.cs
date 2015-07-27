@@ -11,6 +11,7 @@ namespace HASystem.Server.Logic
         Unknown = 0,
 
         UnserBoardVersion1 = 1,
+        IpCam = 4711, //we could support this
 
         Unsupported = Int32.MaxValue,
     }

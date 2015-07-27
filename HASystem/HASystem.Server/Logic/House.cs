@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 
 using System.Text;
 
@@ -16,11 +15,13 @@ namespace HASystem.Server.Logic
         private List<LogicComponent> logicComponents = new List<LogicComponent>();
         private Dispatcher dispatcher = new Dispatcher();
 
+        private int currentLogicComponentsId = 1;
+
         public IReadOnlyCollection<Device> Devices
         {
             get
             {
-                return devices;
+                return devices; //TODO: return thread-save collection!
             }
         }
 
@@ -28,7 +29,7 @@ namespace HASystem.Server.Logic
         {
             get
             {
-                return logicComponents;
+                return logicComponents; //TÓDO: return thread-save collection!
             }
         }
 
@@ -50,6 +51,7 @@ namespace HASystem.Server.Logic
             component.House = this;
             lock (logicComponents)
             {
+                component.Id = currentLogicComponentsId++;
                 logicComponents.Add(component);
             }
 
@@ -90,19 +92,18 @@ namespace HASystem.Server.Logic
 
             lock (devices)
             {
-                if (devices.Where(p => p.MACAddress == device.MACAddress).FirstOrDefault() != null)
+                if (devices.Where(p => Object.Equals(p.MACAddress, device.MACAddress)).FirstOrDefault() != null)
                 {
-                    throw new ArgumentException("device was already added");
+                    throw new ArgumentException("device already exists");
                 }
                 devices.Add(device);
             }
         }
 
-        public void RemoveDevice(PhysicalAddress macAddress)
+        public void RemoveDevice(Device device)
         {
             lock (devices)
             {
-                Device device = devices.Where(p => Object.Equals(p.MACAddress, macAddress)).FirstOrDefault();
                 devices.Remove(device);
             }
         }

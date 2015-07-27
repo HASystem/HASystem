@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
 using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic.Components
@@ -11,10 +10,12 @@ namespace HASystem.Server.Logic.Components
     [Component("{6B24A57E-F347-4733-B788-1A504F99819C}")]
     public class BinaryIn : LogicComponent
     {
-        private int current = 0;
+        private Timer timer;
 
-        public override void Update()
+        public override void UpdateOutput()
         {
+            bool value = Config.GetBoolean("Value", false);
+            Outputs[0].Value = new GenericValue<bool>(value);
         }
 
         public override void Init()
@@ -26,16 +27,17 @@ namespace HASystem.Server.Logic.Components
         {
             //TODO: remove this debug code
             //toggle value
-            Timer timer = new Timer(new TimerCallback((o) =>
+            timer = new Timer(new TimerCallback((o) =>
             {
-                if ((GenericValue<bool>)Outputs[0].Value)
+                if (Config.GetBoolean("Value", false))
                 {
-                    Outputs[current].Value = new GenericValue<bool>(false);
+                    Config["Value"] = false.ToString();
                 }
                 else
                 {
-                    Outputs[current].Value = new GenericValue<bool>(true);
+                    Config["Value"] = true.ToString();
                 }
+                SetDirty();
             }), null, 1000, 1000);
         }
     }

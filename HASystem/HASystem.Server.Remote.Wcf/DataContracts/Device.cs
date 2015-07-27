@@ -24,6 +24,11 @@ namespace HASystem.Server.Remote.Wcf.DataContracts
                 ;
         }
 
+        internal static void InitMapping()
+        {
+            //fake because we use the static ctor for init. but we need a call to the class because otherwise the map wouldn't created
+        }
+
         public ExtensionDataObject ExtensionData
         {
             get;
@@ -37,28 +42,11 @@ namespace HASystem.Server.Remote.Wcf.DataContracts
             set;
         }
 
-        [DataMember]
+        [DataMember(IsRequired = false)]
         public string State
         {
             get;
             set;
-        }
-
-        public Logic.DeviceState RealState
-        {
-            get
-            {
-                Logic.DeviceState value = Logic.DeviceState.Reserved;
-                if (Enum.TryParse<Logic.DeviceState>(State, out value))
-                {
-                    return value;
-                }
-                return Logic.DeviceState.Reserved;
-            }
-            set
-            {
-                State = value.ToString();
-            }
         }
 
         [DataMember]
@@ -68,7 +56,7 @@ namespace HASystem.Server.Remote.Wcf.DataContracts
             set;
         }
 
-        [DataMember]
+        [DataMember(IsRequired = false)]
         public string IPAddress
         {
             get;

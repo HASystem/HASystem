@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
+
 using System.Threading.Tasks;
 
 namespace HASystem.Server.DHCP
@@ -59,7 +60,7 @@ namespace HASystem.Server.DHCP
 
         #region private class methods
 
-        private static uint IPAddressToLongBackwards(IPAddress ipAddress)
+        public static uint IPAddressToLongBackwards(IPAddress ipAddress)
         {
             byte[] ipAsByte = ipAddress.GetAddressBytes();
 

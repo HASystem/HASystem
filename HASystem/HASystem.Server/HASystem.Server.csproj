@@ -47,6 +47,7 @@
     <Compile Include="Logic\Components\BinaryAnd.cs" />
     <Compile Include="Logic\Components\BinaryOut.cs" />
     <Compile Include="Logic\Components\BinaryIn.cs" />
+    <Compile Include="Logic\Components\Logger.cs" />
     <Compile Include="Logic\Connection.cs" />
     <Compile Include="Logic\Dispatcher.cs" />
     <Compile Include="Logic\DispatcherTasks\IDispatcherTask.cs" />
@@ -56,7 +57,8 @@
     <Compile Include="Logic\LogicInput.cs" />
     <Compile Include="Logic\LogicOutput.cs" />
     <Compile Include="Logic\Value.cs" />
-    <Compile Include="Physical\Components\BinaryInOut.cs" />
+    <Compile Include="Physical\Components\BinaryOut.cs" />
+    <Compile Include="Physical\Components\BinaryIn.cs" />
     <Compile Include="Physical\Components\PhysicalComponent.cs" />
     <Compile Include="Physical\Components\Port.cs" />
     <Compile Include="Logic\Device.cs" />
