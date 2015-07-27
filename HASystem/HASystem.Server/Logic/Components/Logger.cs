@@ -1,11 +1,8 @@
-﻿using System;
-
+﻿using HASystem.Shared.ValueSystem;
+using System;
 using System.Collections.Generic;
-
 using System.Linq;
-
 using System.Text;
-
 using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic.Components
@@ -15,7 +12,7 @@ namespace HASystem.Server.Logic.Components
     {
         public override void Init()
         {
-            Inputs = new LogicInput[] { new LogicInput(this, 0, typeof(object)) };
+            Inputs = new LogicInput[] { new LogicInput(this, 0, typeof(Value)) };
         }
 
         public override void UpdateOutput()

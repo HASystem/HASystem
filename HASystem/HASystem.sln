@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Server", "HASystem.Server\HASystem.Server.csproj", "{74E8DFC2-BE5B-478B-B8AF-DF835AE49E06}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Utilities", "HASystem.Desktop.Utilities\HASystem.Desktop.Utilities.csproj", "{E15511BC-8ED0-48EB-8976-36EFF98ED90F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Server.Remote.Wcf", "HASystem.Server.Remote.Wcf\HASystem.Server.Remote.Wcf.csproj", "{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Shared", "HASystem.Shared\HASystem.Shared.csproj", "{4F4D78E4-28CC-4984-9D37-D91AFDB3FE6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F4D78E4-28CC-4984-9D37-D91AFDB3FE6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F4D78E4-28CC-4984-9D37-D91AFDB3FE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F4D78E4-28CC-4984-9D37-D91AFDB3FE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F4D78E4-28CC-4984-9D37-D91AFDB3FE6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

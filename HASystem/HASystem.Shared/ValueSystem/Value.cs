@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HASystem.Server.Logic
+namespace HASystem.Shared.ValueSystem
 {
     public abstract class Value
     {
+        //TODO: serialize
+        //TODO: deserialize
     }
 }

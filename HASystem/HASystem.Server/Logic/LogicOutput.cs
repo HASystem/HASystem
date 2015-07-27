@@ -1,4 +1,5 @@
 ﻿using HASystem.Server.Logic.DispatcherTasks;
+using HASystem.Shared.ValueSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +63,9 @@ namespace HASystem.Server.Logic
                 throw new ArgumentNullException("component");
             if (outputType == null)
                 throw new ArgumentNullException("outputType");
+            if (!typeof(Value).IsAssignableFrom(outputType))
+                throw new ArgumentException("OutputType has to inherit from Value", "outputType");
+
             Component = component;
             Index = index;
             OutputType = outputType;
