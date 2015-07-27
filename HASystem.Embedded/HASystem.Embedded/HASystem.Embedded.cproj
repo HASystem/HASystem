@@ -28,15 +28,15 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
-        <options />
-        <configurations />
-        <files />
-        <documentation help="" />
-        <offline-documentation help="" />
-        <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.10.1" />
-        </dependencies>
-      </framework-data>
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.15.0" />
+  </dependencies>
+</framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.ispmk2</avrtool>
     <avrtoolinterface>ISP</avrtoolinterface>
@@ -112,6 +112,12 @@
     <Compile Include="config.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="datastore.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="datastore.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="hardware\ethernet\enc28j60.c">
       <SubType>compile</SubType>
     </Compile>
@@ -130,13 +136,10 @@
     <Compile Include="HASystem.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="network\arp.c">
+    <Compile Include="network\dhcpc.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="network\arp.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="network\ethernet.h">
+    <Compile Include="network\dhcpc.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="network\stack.c">
@@ -161,6 +164,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="sensors\ds18x20.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UART.c">

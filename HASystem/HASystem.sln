@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Assembler"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Utilities", "HASystem.Desktop.Utilities\HASystem.Desktop.Utilities.csproj", "{E15511BC-8ED0-48EB-8976-36EFF98ED90F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Server.Remote.Wcf", "HASystem.Server.Remote.Wcf\HASystem.Server.Remote.Wcf.csproj", "{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{E15511BC-8ED0-48EB-8976-36EFF98ED90F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E15511BC-8ED0-48EB-8976-36EFF98ED90F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E15511BC-8ED0-48EB-8976-36EFF98ED90F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4B8DFDE-4E23-4990-BB64-EEEA32086B6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

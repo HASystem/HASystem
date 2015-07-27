@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HASystem.Server
+namespace HASystem.Server.Remote.Wcf
 {
-    public class Class1
+    public static class Hook
     {
     }
 }

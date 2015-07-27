@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
+
 using System.Threading.Tasks;
 
 namespace HASystem.Server.DHCP
@@ -12,66 +13,56 @@ namespace HASystem.Server.DHCP
     public class DHCPService
     {
         #region fields
+
         private DHCPServer dhcpServer;
-        private string startIp;
-        private string macMask;
-        private string adapterIp;
+        private IPAddress startIp = IPAddress.Parse("10.222.0.0");
+        private string macMask = "";
+        private IPAddress adapterIp = IPAddress.Parse("0.0.0.0");
         private Thread dhcpServerThread = null;
-        #endregion
+
+        #endregion fields
 
         #region public class methods
-        public static bool CheckAlive(string ipAddress)
-        {
-            Ping pingSender = new Ping();
-            IPAddress address;
-            PingReply reply;
 
-            try
+        public static bool CheckAlive(IPAddress address)
+        {
+            using (Ping pingSender = new Ping())
             {
-                address = IPAddress.Parse(ipAddress);
-                reply = pingSender.Send(address, 100);
-                if (reply.Status == IPStatus.Success)
+                try
                 {
-                    // TODO: handle reply
-                    //Console.WriteLine("Address: {0}", reply.Address.ToString());
-                    //Console.WriteLine("RoundTrip time: {0}", reply.RoundtripTime);
-                    //Console.WriteLine("Time to live: {0}", reply.Options.Ttl);
-                    //Console.WriteLine("Don't fragment: {0}", reply.Options.DontFragment);
-                    //Console.WriteLine("Buffer size: {0}", reply.Buffer.Length);
-                    return true;
+                    PingReply reply = pingSender.Send(address, 100);
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        // TODO: handle reply
+                        //Console.WriteLine("Address: {0}", reply.Address.ToString());
+                        //Console.WriteLine("RoundTrip time: {0}", reply.RoundtripTime);
+                        //Console.WriteLine("Time to live: {0}", reply.Options.Ttl);
+                        //Console.WriteLine("Don't fragment: {0}", reply.Options.DontFragment);
+                        //Console.WriteLine("Buffer size: {0}", reply.Buffer.Length);
+                        return true;
+                    }
+                    else
+                    {
+                        // TODO: handle reply status
+                        // Console.WriteLine(reply.Status);
+                        return false;
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    // TODO: handle reply status
-                    // Console.WriteLine(reply.Status);
+                    // TODO: handle exception
                     return false;
                 }
             }
-            catch (Exception)
-            {
-                // TODO: handle exception
-                return false;
-            }
-            finally
-            {
-                if (pingSender != null)
-                {
-                    pingSender.Dispose();
-                }
-
-                pingSender = null;
-                address = null;
-                reply = null;
-            }
         }
-        #endregion
+
+        #endregion public class methods
 
         #region private class methods
-        private static uint IPAddressToLongBackwards(string ipAddress)
-        {
-            IPAddress parsedIpAddress = IPAddress.Parse(ipAddress);
-            byte[] ipAsByte = parsedIpAddress.GetAddressBytes();
 
+        public static uint IPAddressToLongBackwards(IPAddress ipAddress)
+        {
+            byte[] ipAsByte = ipAddress.GetAddressBytes();
 
             uint ip = (uint)ipAsByte[0] << 24;
             ip += (uint)ipAsByte[1] << 16;
@@ -80,13 +71,14 @@ namespace HASystem.Server.DHCP
 
             return ip;
         }
-        #endregion
+
+        #endregion private class methods
 
         #region public methods
+
         public void StartService()
         {
             //allow data from all network cards
-            adapterIp = "0.0.0.0";
             dhcpServer = new DHCPServer(adapterIp);
             dhcpServer.Announced += new DHCPServer.AnnouncedEventHandler(DHCPAnnounced);
             dhcpServer.Request += new DHCPServer.RequestEventHandler(DHCPRequest);
@@ -99,15 +91,17 @@ namespace HASystem.Server.DHCP
         {
             dhcpServer.Dispose();
         }
-        #endregion
+
+        #endregion public methods
 
         #region private methods
-        private string GetIpAddress()
+
+        private IPAddress GetIpAddress()
         {
             IPAddress ipAddress;
             byte[] ipAsByte;
             UInt32 parsedIpAddress;
-            
+
             try
             {
                 parsedIpAddress = IPAddressToLongBackwards(startIp);
@@ -123,10 +117,10 @@ namespace HASystem.Server.DHCP
                     ipAddress = new IPAddress(ipAsByte);
                     // yy = IPAddress.HostToNetworkOrder(ii);
                 }
-                while (CheckAlive(ipAddress.ToString()) == true);
+                while (CheckAlive(ipAddress) == true);
                 //reaching here means that the ip is free
 
-                return ipAddress.ToString();
+                return ipAddress;
             }
             catch
             {
@@ -142,21 +136,20 @@ namespace HASystem.Server.DHCP
             {
                 //options should be filled with valid data
                 transaction.Data.IPAddr = GetIpAddress();
-                transaction.Data.SubMask = "255.255.0.0";
+                transaction.Data.SubMask = IPAddress.Parse("255.255.0.0");
                 transaction.Data.LeaseTime = 2000;
-                transaction.Data.ServerName = "Small DHCP Server";
+                transaction.Data.ServerName = "HASystem";
                 transaction.Data.MyIP = adapterIp;
-                transaction.Data.RouterIP = "0.0.0.0";
+                transaction.Data.RouterIP = IPAddress.Parse("0.0.0.0");
                 transaction.Data.LogServerIP = "0.0.0.0";
-                transaction.Data.DomainIP = "0.0.0.0";
+                transaction.Data.DomainIP = IPAddress.Parse("0.0.0.0");
                 str = "IP requested for Mac: " + macId;
-
+                dhcpServer.SendDHCPMessage(DHCPMessageType.DHCPOFFER, transaction);
             }
             else
             {
                 str = "Mac: " + macId + " is not part of the mask!";
             }
-            dhcpServer.SendDHCPMessage(DHCPMessageType.DHCPOFFER, transaction);
 
             // TODO: handle str
             // str contains the ip
@@ -169,13 +162,13 @@ namespace HASystem.Server.DHCP
             {
                 //announced so then send the offer
                 transaction.Data.IPAddr = GetIpAddress();
-                transaction.Data.SubMask = "255.255.0.0";
+                transaction.Data.SubMask = IPAddress.Parse("255.255.0.0");
                 transaction.Data.LeaseTime = 2000;
-                transaction.Data.ServerName = "tiny DHCP Server";
+                transaction.Data.ServerName = "HASystem";
                 transaction.Data.MyIP = adapterIp;
-                transaction.Data.RouterIP = "0.0.0.0";
+                transaction.Data.RouterIP = IPAddress.Parse("0.0.0.0");
                 transaction.Data.LogServerIP = "0.0.0.0";
-                transaction.Data.DomainIP = "0.0.0.0";
+                transaction.Data.DomainIP = IPAddress.Parse("0.0.0.0");
                 dhcpServer.SendDHCPMessage(DHCPMessageType.DHCPACK, transaction);
                 str = "IP " + transaction.Data.IPAddr + " Assigned to Mac: " + macId;
             }
@@ -183,11 +176,11 @@ namespace HASystem.Server.DHCP
             {
                 str = "Mac: " + macId + " is not part of the mask!";
             }
-            
+
             // TODO: handle str
             // str contains the ip
         }
-        #endregion
-    }
 
+        #endregion private methods
+    }
 }
