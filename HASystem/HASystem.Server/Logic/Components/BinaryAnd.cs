@@ -34,13 +34,6 @@ namespace HASystem.Server.Logic.Components
             EnsureInputGates();
         }
 
-        protected override void OnComponenentConfigChanged(ComponentConfig oldValue, ComponentConfig newValue)
-        {
-            EnsureInputGates();
-
-            base.OnComponenentConfigChanged(oldValue, newValue);
-        }
-
         private void EnsureInputGates()
         {
             //do we allow multiple input ports?

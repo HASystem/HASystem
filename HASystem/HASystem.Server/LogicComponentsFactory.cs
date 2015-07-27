@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HASystem.Server
 {
-    internal class LogicComponentsFactory
+    public class LogicComponentsFactory
     {
         private Dictionary<Guid, Type> componentTypes = new Dictionary<Guid, Type>();
 

@@ -125,9 +125,15 @@ namespace HASystem.Server.Logic
             }
             set
             {
-                if (Object.Equals(values[key], value))
-                    return;
+                string oldValue = null;
+                if (values.TryGetValue(key, out oldValue))
+                {
+                    if (Object.Equals(oldValue, value))
+                        return;
+                }
+
                 values[key] = value;
+                Component.SetDirty();
             }
         }
 

@@ -15,7 +15,6 @@ namespace HASystem.Server
     public class Manager
     {
         private static Manager instance = new Manager();
-        private LogicComponentsFactory logicComponentsFactory = new LogicComponentsFactory();
 
         private DHCPServer dhcpServer;
         private IPAddress networkIpMin = IPAddress.Parse("192.168.255.1");
@@ -25,6 +24,12 @@ namespace HASystem.Server
         private Thread dhcpServerThread = null;
 
         public House House
+        {
+            get;
+            private set;
+        }
+
+        public LogicComponentsFactory ComponentsFactory
         {
             get;
             private set;
@@ -41,11 +46,12 @@ namespace HASystem.Server
         public Manager()
         {
             House = new House();
+            ComponentsFactory = new LogicComponentsFactory();
         }
 
         public void Start()
         {
-            logicComponentsFactory.Init();
+            ComponentsFactory.Init();
 
             House.Start();
             StartDhcpService();

@@ -50,7 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts\Component.cs" />
     <Compile Include="DataContracts\Device.cs" />
+    <Compile Include="ServiceContracts\IComponentsService.cs" />
+    <Compile Include="ServiceImplementation\ComponentsService.cs" />
     <Compile Include="ServiceImplementation\DevicesService.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="ServiceContracts\IDevicesService.cs" />
