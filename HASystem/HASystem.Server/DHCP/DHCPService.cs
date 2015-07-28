@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
-
 using System.Threading.Tasks;
 
 namespace HASystem.Server.DHCP
@@ -26,9 +25,9 @@ namespace HASystem.Server.DHCP
 
         public static bool CheckAlive(IPAddress address)
         {
-            using (Ping pingSender = new Ping())
+            try
             {
-                try
+                using (Ping pingSender = new Ping())
                 {
                     PingReply reply = pingSender.Send(address, 100);
                     if (reply.Status == IPStatus.Success)
@@ -48,11 +47,11 @@ namespace HASystem.Server.DHCP
                         return false;
                     }
                 }
-                catch (Exception)
-                {
-                    // TODO: handle exception
-                    return false;
-                }
+            }
+            catch (Exception)
+            {
+                // TODO: handle exception
+                return false;
             }
         }
 

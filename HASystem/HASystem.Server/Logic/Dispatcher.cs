@@ -33,10 +33,15 @@ namespace HASystem.Server.Logic
                 LinkedListNode<IDispatcherTask> current = taskQueue.First;
                 while (current != null)
                 {
-                    current = current.Next;
-                    if (current.Previous.Value.ConcerningComponent == component)
+                    if (current.Value.ConcerningComponent == component)
                     {
-                        taskQueue.Remove(current.Previous);
+                        LinkedListNode<IDispatcherTask> next = current.Next;
+                        taskQueue.Remove(current);
+                        current = next;
+                    }
+                    else
+                    {
+                        current = current.Next;
                     }
                 }
             }
@@ -87,6 +92,9 @@ namespace HASystem.Server.Logic
                         IDispatcherTask task = null;
                         lock (taskQueue)
                         {
+                            if (taskQueue.First == null)
+                                continue;
+
                             task = taskQueue.First.Value;
                             taskQueue.RemoveFirst();
 

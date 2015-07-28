@@ -79,11 +79,18 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
                 IPAddress ip = null;
                 if (IPAddress.TryParse(device.IPAddress, out ip))
                 {
-                    logicDevice.IPAddress = ip;
+                    if (IPAddress.None.Equals(ip) || Manager.Instance.House.Devices.Where(p => Object.Equals(ip, p.IPAddress)).FirstOrDefault() == null)
+                    {
+                        logicDevice.IPAddress = ip;
+                    }
+                    else
+                    {
+                        throw new WebFaultException<ArgumentException>(new ArgumentException("ip already used by another device"), HttpStatusCode.Conflict);
+                    }
                 }
                 else
                 {
-                    throw new WebFaultException<ArgumentException>(new ArgumentNullException("invalid ip"), HttpStatusCode.BadRequest);
+                    throw new WebFaultException<ArgumentException>(new ArgumentException("invalid ip"), HttpStatusCode.BadRequest);
                 }
             }
             else

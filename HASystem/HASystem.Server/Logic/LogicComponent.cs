@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using System.Text;
 
 namespace HASystem.Server.Logic
@@ -36,19 +35,12 @@ namespace HASystem.Server.Logic
             }
         }
 
-        public DateTime LastModified
-        {
-            get;
-            private set;
-        }
-
         public House House
         {
             get;
             internal set;
         }
 
-        //TODO: unsure if we can solve this with this solution
         public PhysicalComponent MappedComponent
         {
             get { return mappedComponent; }
@@ -57,9 +49,8 @@ namespace HASystem.Server.Logic
 
         public void SetDirty()
         {
-            LastModified = DateTime.UtcNow;
-
-            House.EnqueueTask(new UpdateComponentTask(this));
+            if (House != null)
+                House.EnqueueTask(new UpdateComponentTask(this));
         }
 
         public LogicInput[] Inputs
@@ -108,7 +99,7 @@ namespace HASystem.Server.Logic
                 }
                 return config;
             }
-            internal set
+            set
             {
                 if (Object.Equals(config, value))
                     return;

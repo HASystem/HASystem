@@ -17,10 +17,13 @@ namespace HASystem.Server
         private static Manager instance = new Manager();
 
         private DHCPServer dhcpServer;
-        private IPAddress networkIpMin = IPAddress.Parse("192.168.255.1");
-        private IPAddress networkIpMax = IPAddress.Parse("192.168.255.255");
-        private IPAddress currentIp = IPAddress.Parse("192.168.255.1");
+        private IPAddress networkIpMin = IPAddress.Parse("192.168.0.1");
+        private IPAddress networkIpMax = IPAddress.Parse("192.168.0.255");
+        private IPAddress currentIp = IPAddress.Parse("192.168.0.1");
+
+        //private IPAddress adapterIp = IPAddress.Parse("192.168.0.254");
         private IPAddress adapterIp = IPAddress.Parse("0.0.0.0");
+
         private Thread dhcpServerThread = null;
 
         public House House
@@ -106,26 +109,29 @@ namespace HASystem.Server
         {
             PhysicalAddress mac = PhysicalAddress.Parse(macAddress);
 
-            Device device = House.Devices.Where(p => Object.Equals(mac, p.MACAddress)).FirstOrDefault();
-            if (device == null)
+            lock (dhcpServer)
             {
-                device = new Device();
-                device.MACAddress = mac;
-                device.IPAddress = IPAddress.None;
-                device.Name = "Autodetect-" + mac;
-                House.AddDevice(device);
-            }
-            else
-            {
-                if (device.IPAddress != IPAddress.None)
+                Device device = House.Devices.Where(p => Object.Equals(mac, p.MACAddress)).FirstOrDefault();
+                if (device == null)
                 {
-                    return device.IPAddress;
+                    device = new Device();
+                    device.MACAddress = mac;
+                    device.IPAddress = IPAddress.None;
+                    device.Name = "Autodetect-" + mac;
+                    House.AddDevice(device);
                 }
+                else
+                {
+                    if (!Object.Equals(device.IPAddress, IPAddress.None))
+                    {
+                        return device.IPAddress;
+                    }
+                }
+
+                device.IPAddress = GetNextIp();
+
+                return device.IPAddress;
             }
-
-            device.IPAddress = GetNextIp();
-
-            return device.IPAddress;
         }
 
         private IPAddress GetNextIp()
@@ -146,13 +152,13 @@ namespace HASystem.Server
                 ipAsByte[0] = (byte)(parsedIpAddress >> 24);
                 ipAddress = new IPAddress(ipAsByte);
 
-                if (ipAddress == networkIpMax)
+                if (Object.Equals(ipAddress, networkIpMax))
                 {
                     ipAddress = networkIpMin;
                     parsedIpAddress = DHCPService.IPAddressToLongBackwards(networkIpMin);
                 }
 
-                if (House.Devices.Where(p => p.IPAddress == ipAddress).FirstOrDefault() != null) //TODO: some kind of aging
+                if (House.Devices.Where(p => Object.Equals(p.IPAddress, ipAddress)).FirstOrDefault() != null) //TODO: some kind of aging
                 {
                     continue;
                 }
@@ -186,6 +192,10 @@ namespace HASystem.Server
             Logger logger = new Logger();
             House.AddComponent(logger);
             and.Outputs[0].AddConnection(logger.Inputs[0]);
+
+            binaryIn.Config["test"] = "hallo";
+            binaryIn.Config["test2"] = "test2";
+            logger.Config["foo"] = "bar";
         }
 
 #endif

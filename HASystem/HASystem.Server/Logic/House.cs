@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using System.Text;
-
 using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic
@@ -51,7 +49,7 @@ namespace HASystem.Server.Logic
             component.House = this;
             lock (logicComponents)
             {
-                component.Id = currentLogicComponentsId++;
+                component.Id = currentLogicComponentsId++; //TODO: improve id assignment
                 logicComponents.Add(component);
             }
 
@@ -69,13 +67,13 @@ namespace HASystem.Server.Logic
 
             component.House = null;
 
+            component.RemoveOutputConnections();
+            component.RemoveInputConnections();
+
             lock (logicComponents)
             {
                 logicComponents.Remove(component);
             }
-
-            component.RemoveOutputConnections();
-            component.RemoveInputConnections();
 
             dispatcher.RemoveTasksForComponent(component);
         }

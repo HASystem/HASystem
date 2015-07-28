@@ -11,7 +11,7 @@ namespace HASystem.Server.Logic
 {
     public class ComponentConfig : IDictionary<string, string>
     {
-        private Dictionary<string, string> values = new Dictionary<string, string>();
+        private Dictionary<string, string> values;
 
         public LogicComponent Component
         {
@@ -20,10 +20,19 @@ namespace HASystem.Server.Logic
         }
 
         public ComponentConfig(LogicComponent component)
+            : this(component, new Dictionary<string, string>())
+        {
+        }
+
+        public ComponentConfig(LogicComponent component, Dictionary<string, string> values)
         {
             if (component == null)
                 throw new ArgumentNullException("component");
+            if (values == null)
+                throw new ArgumentNullException("values");
+
             Component = component;
+            this.values = values;
         }
 
         public string GetValue(string key, string def)
