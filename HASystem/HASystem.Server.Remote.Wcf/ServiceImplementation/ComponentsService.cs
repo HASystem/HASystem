@@ -30,7 +30,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (!Int32.TryParse(id, out idI))
                 throw new WebFaultException(HttpStatusCode.BadRequest);
 
-            LogicComponent component = Manager.Instance.House.Components.Where(p => p.Id == idI).FirstOrDefault();
+            LogicComponent component = Manager.Instance.House.Components.FirstOrDefault(p => p.Id == idI);
             if (component == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
@@ -86,7 +86,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (component.Id != idI)
                 throw new WebFaultException(HttpStatusCode.BadRequest); //we don't allow to modify the id
 
-            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.Where(p => p.Id == idI).FirstOrDefault();
+            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.FirstOrDefault(p => p.Id == idI);
             if (logicComponent == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
@@ -110,7 +110,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (!Int32.TryParse(id, out idI))
                 throw new WebFaultException(HttpStatusCode.BadRequest);
 
-            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.Where(p => p.Id == idI).FirstOrDefault();
+            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.FirstOrDefault(p => p.Id == idI);
             if (logicComponent == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
@@ -127,11 +127,11 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (!Int32.TryParse(index, out indexI))
                 throw new WebFaultException(HttpStatusCode.BadRequest);
 
-            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.Where(p => p.Id == idI).FirstOrDefault();
+            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.FirstOrDefault(p => p.Id == idI);
             if (logicComponent == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
-            Logic.LogicOutput output = logicComponent.Outputs.Where(p => p.Index == indexI).FirstOrDefault();
+            Logic.LogicOutput output = logicComponent.Outputs.FirstOrDefault(p => p.Index == indexI);
             if (output == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 

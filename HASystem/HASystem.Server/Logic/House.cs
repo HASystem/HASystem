@@ -90,7 +90,7 @@ namespace HASystem.Server.Logic
 
             lock (devices)
             {
-                if (devices.Where(p => Object.Equals(p.MACAddress, device.MACAddress)).FirstOrDefault() != null)
+                if (devices.Exists(p => Object.Equals(p.MACAddress, device.MACAddress)))
                 {
                     throw new ArgumentException("device already exists");
                 }

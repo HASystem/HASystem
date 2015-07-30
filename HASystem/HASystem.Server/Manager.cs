@@ -111,7 +111,7 @@ namespace HASystem.Server
 
             lock (dhcpServer)
             {
-                Device device = House.Devices.Where(p => Object.Equals(mac, p.MACAddress)).FirstOrDefault();
+                Device device = House.Devices.FirstOrDefault(p => Object.Equals(mac, p.MACAddress));
                 if (device == null)
                 {
                     device = new Device();
@@ -158,7 +158,7 @@ namespace HASystem.Server
                     parsedIpAddress = DHCPService.IPAddressToLongBackwards(networkIpMin);
                 }
 
-                if (House.Devices.Where(p => Object.Equals(p.IPAddress, ipAddress)).FirstOrDefault() != null) //TODO: some kind of aging
+                if (House.Devices.Any(p => Object.Equals(p.IPAddress, ipAddress))) //TODO: some kind of aging
                 {
                     continue;
                 }
