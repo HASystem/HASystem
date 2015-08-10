@@ -26,7 +26,7 @@ namespace HASystem.Desktop.Utilities
             _canExecute = canExecute;
         }
 
-        public override bool CanExecute(object parameter)
+        public bool CanExecute(object parameter)
         {
             if (_canExecute == null)
             {
@@ -36,7 +36,7 @@ namespace HASystem.Desktop.Utilities
             return _canExecute(parameter);
         }
 
-        public override void Execute(object parameter)
+        public void Execute(object parameter)
         {
             _execute(parameter);
         }
