@@ -7,13 +7,19 @@ using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic
 {
-    public class House
+    public class House : ICloneable
     {
         private List<Device> devices = new List<Device>();
         private List<LogicComponent> logicComponents = new List<LogicComponent>();
         private Dispatcher dispatcher = new Dispatcher();
 
         private int currentLogicComponentsId = 1;
+
+        public string Name
+        {
+            get;
+            set;
+        }
 
         public IReadOnlyCollection<Device> Devices
         {
@@ -90,7 +96,7 @@ namespace HASystem.Server.Logic
 
             lock (devices)
             {
-                if (devices.Exists(p => Object.Equals(p.MACAddress, device.MACAddress)))
+                if (devices.Any(p => Object.Equals(p.MACAddress, device.MACAddress)))
                 {
                     throw new ArgumentException("device already exists");
                 }
@@ -104,6 +110,11 @@ namespace HASystem.Server.Logic
             {
                 devices.Remove(device);
             }
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

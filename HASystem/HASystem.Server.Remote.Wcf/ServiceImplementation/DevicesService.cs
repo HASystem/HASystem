@@ -23,7 +23,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
 
         public Device[] GetAllDevices()
         {
-            return Manager.Instance.House.Devices.Select(l => Mapper.Map<Logic.Device, Device>(l)).ToArray();
+            return Manager.Instance.Current.Devices.Select(l => Mapper.Map<Logic.Device, Device>(l)).ToArray();
         }
 
         public Device GetDevice(string mac)
@@ -38,7 +38,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
                 throw new WebFaultException<FormatException>(ex, HttpStatusCode.BadRequest);
             }
 
-            Logic.Device device = Manager.Instance.House.Devices.FirstOrDefault(p => Object.Equals(p.MACAddress, macAddress));
+            Logic.Device device = Manager.Instance.Current.Devices.FirstOrDefault(p => Object.Equals(p.MACAddress, macAddress));
 
             if (device == null)
             {
@@ -64,7 +64,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             }
 
             //test if device already exists
-            if (Manager.Instance.House.Devices.Any(p => Object.Equals(p.MACAddress, mac)))
+            if (Manager.Instance.Current.Devices.Any(p => Object.Equals(p.MACAddress, mac)))
                 throw new WebFaultException(HttpStatusCode.Conflict);
             if (String.IsNullOrWhiteSpace(device.Name))
                 throw new WebFaultException<ArgumentNullException>(new ArgumentNullException("Name can not be empty"), HttpStatusCode.BadRequest);
@@ -79,7 +79,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
                 IPAddress ip = null;
                 if (IPAddress.TryParse(device.IPAddress, out ip))
                 {
-                    if (IPAddress.None.Equals(ip) || !Manager.Instance.House.Devices.Any(p => Object.Equals(ip, p.IPAddress)))
+                    if (IPAddress.None.Equals(ip) || !Manager.Instance.Current.Devices.Any(p => Object.Equals(ip, p.IPAddress)))
                     {
                         logicDevice.IPAddress = ip;
                     }
@@ -98,7 +98,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
                 logicDevice.IPAddress = IPAddress.None;
             }
 
-            Manager.Instance.House.AddDevice(logicDevice);
+            Manager.Instance.Current.AddDevice(logicDevice);
         }
 
         public void SaveDevice(string mac, Device device)
@@ -125,7 +125,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
                 throw new WebFaultException<FormatException>(ex, HttpStatusCode.BadRequest);
             }
 
-            Logic.Device logicDevice = Manager.Instance.House.Devices.FirstOrDefault(p => Object.Equals(p.MACAddress, macAddress));
+            Logic.Device logicDevice = Manager.Instance.Current.Devices.FirstOrDefault(p => Object.Equals(p.MACAddress, macAddress));
             if (logicDevice == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
             if (String.IsNullOrWhiteSpace(device.Name))
@@ -133,7 +133,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
 
             if (!Object.Equals(macAddressNew, logicDevice.MACAddress)) //do we allow this?
             {
-                if (Manager.Instance.House.Devices.Any(p => Object.Equals(p.MACAddress, macAddressNew)))
+                if (Manager.Instance.Current.Devices.Any(p => Object.Equals(p.MACAddress, macAddressNew)))
                 {
                     throw new WebFaultException<ArgumentException>(new ArgumentException("mac-address is already used by another device"), HttpStatusCode.Conflict);
                 }
@@ -156,11 +156,11 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
                 throw new WebFaultException<FormatException>(ex, HttpStatusCode.BadRequest);
             }
 
-            Logic.Device device = Manager.Instance.House.Devices.FirstOrDefault(p => Object.Equals(p.MACAddress, macAddress));
+            Logic.Device device = Manager.Instance.Current.Devices.FirstOrDefault(p => Object.Equals(p.MACAddress, macAddress));
             if (device == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
-            Manager.Instance.House.RemoveDevice(device);
+            Manager.Instance.Current.RemoveDevice(device);
         }
     }
 }

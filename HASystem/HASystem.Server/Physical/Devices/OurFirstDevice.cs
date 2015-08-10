@@ -17,9 +17,30 @@ namespace HASystem.Server.Physical.Devices
 
         public OurFirstDevice()
         {
-            Components = new PhysicalComponent[] {
-                new BinaryIn(this, new Port[] { Port.PD0, Port.PD1, Port.PD2, Port.PD3, Port.PD4, Port.PD5, Port.PD6, Port.PD7 })
-            };
+            List<PhysicalComponent> components = new List<PhysicalComponent>();
+
+            foreach (Port port in Enum.GetValues(typeof(Port)))
+            {
+                components.Add(new BinaryIn(this, port));
+                components.Add(new BinaryOut(this, port));
+            }
+
+            Components = components.ToArray();
+        }
+
+        public override PhysicalComponent[] GetSupportedComponents(LogicComponent logicComponent)
+        {
+            //TODO: filter if port is already used by other input/output
+            if (logicComponent.GetType() == typeof(Logic.LogicInput))
+            {
+                return Components.Where(p => p.GetType() == typeof(BinaryIn)).ToArray();
+            }
+            else if (logicComponent.GetType() == typeof(Logic.LogicOutput))
+            {
+                //TODO: filter if output component is already assigned to other logic component
+                return Components.Where(p => p.GetType() == typeof(BinaryOut)).ToArray();
+            }
+            return new PhysicalComponent[0];
         }
     }
 }

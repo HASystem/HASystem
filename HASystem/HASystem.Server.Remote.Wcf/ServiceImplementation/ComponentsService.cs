@@ -21,7 +21,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
 
         public Component[] GetComponents()
         {
-            return Manager.Instance.House.Components.Select(l => Mapper.Map<Logic.LogicComponent, Component>(l)).ToArray();
+            return Manager.Instance.Current.Components.Select(l => Mapper.Map<Logic.LogicComponent, Component>(l)).ToArray();
         }
 
         public DataContracts.Component GetSingleComponent(string id)
@@ -30,7 +30,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (!Int32.TryParse(id, out idI))
                 throw new WebFaultException(HttpStatusCode.BadRequest);
 
-            LogicComponent component = Manager.Instance.House.Components.FirstOrDefault(p => p.Id == idI);
+            LogicComponent component = Manager.Instance.Current.Components.FirstOrDefault(p => p.Id == idI);
             if (component == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
@@ -69,7 +69,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
 
             //TODO: save position
 
-            Manager.Instance.House.AddComponent(logicComponent);
+            Manager.Instance.Current.AddComponent(logicComponent);
 
             return logicComponent.Id;
         }
@@ -86,7 +86,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (component.Id != idI)
                 throw new WebFaultException(HttpStatusCode.BadRequest); //we don't allow to modify the id
 
-            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.FirstOrDefault(p => p.Id == idI);
+            Logic.LogicComponent logicComponent = Manager.Instance.Current.Components.FirstOrDefault(p => p.Id == idI);
             if (logicComponent == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
@@ -110,11 +110,11 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (!Int32.TryParse(id, out idI))
                 throw new WebFaultException(HttpStatusCode.BadRequest);
 
-            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.FirstOrDefault(p => p.Id == idI);
+            Logic.LogicComponent logicComponent = Manager.Instance.Current.Components.FirstOrDefault(p => p.Id == idI);
             if (logicComponent == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
-            Manager.Instance.House.RemoveComponent(logicComponent);
+            Manager.Instance.Current.RemoveComponent(logicComponent);
         }
 
         public Value GetOutputValue(string id, string index)
@@ -127,7 +127,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (!Int32.TryParse(index, out indexI))
                 throw new WebFaultException(HttpStatusCode.BadRequest);
 
-            Logic.LogicComponent logicComponent = Manager.Instance.House.Components.FirstOrDefault(p => p.Id == idI);
+            Logic.LogicComponent logicComponent = Manager.Instance.Current.Components.FirstOrDefault(p => p.Id == idI);
             if (logicComponent == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 

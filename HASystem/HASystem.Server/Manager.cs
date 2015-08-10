@@ -16,6 +16,8 @@ namespace HASystem.Server
     {
         private static Manager instance = new Manager();
 
+        private Dictionary<string, House> houses = new Dictionary<string, House>();
+
         private DHCPServer dhcpServer;
         private IPAddress networkIpMin = IPAddress.Parse("192.168.0.1");
         private IPAddress networkIpMax = IPAddress.Parse("192.168.0.255");
@@ -26,7 +28,15 @@ namespace HASystem.Server
 
         private Thread dhcpServerThread = null;
 
-        public House House
+        public static Manager Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        public House Current
         {
             get;
             private set;
@@ -38,25 +48,86 @@ namespace HASystem.Server
             private set;
         }
 
-        public static Manager Instance
+        public Manager()
         {
-            get
+            Current = new House();
+            Current.Name = "default";
+            houses.Add("default", Current);
+
+            ComponentsFactory = new LogicComponentsFactory();
+        }
+
+        public House GetHouse(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException("name");
+            House house = null;
+            lock (houses)
             {
-                return instance;
+                houses.TryGetValue(name, out house);
+            }
+            return house;
+        }
+
+        public House Clone(House house, string cloneName)
+        {
+            if (house == null)
+                throw new ArgumentNullException("house");
+            if (String.IsNullOrWhiteSpace(cloneName))
+                throw new ArgumentNullException("cloneName");
+            if (houses.ContainsKey(cloneName))
+                throw new ArgumentException("house with new name already exists");
+            house = (House)house.Clone();
+            house.Name = cloneName;
+            lock (houses)
+            {
+                if (houses.ContainsKey(cloneName))
+                    throw new ArgumentException("house with new name already exists");
+                houses.Add(cloneName, house);
+            }
+            return house;
+        }
+
+        public House NewHouse(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException("name");
+            lock (houses)
+            {
+                if (houses.ContainsKey(name))
+                    throw new ArgumentException("House already exists", "name");
+                House house = new House();
+                house.Name = name;
+                houses.Add(name, house);
+                return house;
             }
         }
 
-        public Manager()
+        public void SetCurrentHouse(House newCurrent)
         {
-            House = new House();
-            ComponentsFactory = new LogicComponentsFactory();
+            if (newCurrent == null)
+                throw new ArgumentNullException("newCurrent");
+            lock (houses)
+            {
+                if (houses.ContainsValue(newCurrent))
+                    throw new ArgumentException("newCurrent is not known");
+                Current = newCurrent;
+            }
+        }
+
+        public House[] GetAllHouses()
+        {
+            lock (houses)
+            {
+                return houses.Values.ToArray();
+            }
         }
 
         public void Start()
         {
             ComponentsFactory.Init();
 
-            House.Start();
+            Current.Start();
             StartDhcpService();
 
 #if DEBUG
@@ -111,14 +182,14 @@ namespace HASystem.Server
 
             lock (dhcpServer)
             {
-                Device device = House.Devices.FirstOrDefault(p => Object.Equals(mac, p.MACAddress));
+                Device device = Current.Devices.FirstOrDefault(p => Object.Equals(mac, p.MACAddress));
                 if (device == null)
                 {
                     device = new Device();
                     device.MACAddress = mac;
                     device.IPAddress = IPAddress.None;
                     device.Name = "Autodetect-" + mac;
-                    House.AddDevice(device);
+                    Current.AddDevice(device);
                 }
                 else
                 {
@@ -158,7 +229,7 @@ namespace HASystem.Server
                     parsedIpAddress = DHCPService.IPAddressToLongBackwards(networkIpMin);
                 }
 
-                if (House.Devices.Any(p => Object.Equals(p.IPAddress, ipAddress))) //TODO: some kind of aging
+                if (Current.Devices.Any(p => Object.Equals(p.IPAddress, ipAddress))) //TODO: some kind of aging
                 {
                     continue;
                 }
@@ -177,20 +248,20 @@ namespace HASystem.Server
         {
             BinaryIn binaryIn = new BinaryIn();
             BinaryIn src2 = new BinaryIn();
-            House.AddComponent(binaryIn);
-            House.AddComponent(src2);
+            Current.AddComponent(binaryIn);
+            Current.AddComponent(src2);
             BinaryAnd and = new BinaryAnd();
-            House.AddComponent(and);
+            Current.AddComponent(and);
 
             binaryIn.Outputs[0].AddConnection(and.Inputs[0]);
             src2.Outputs[0].AddConnection(and.Inputs[1]);
 
             BinaryOut binaryOut = new BinaryOut();
-            House.AddComponent(binaryOut);
+            Current.AddComponent(binaryOut);
             and.Outputs[0].AddConnection(binaryOut.Inputs[0]);
 
             Logger logger = new Logger();
-            House.AddComponent(logger);
+            Current.AddComponent(logger);
             and.Outputs[0].AddConnection(logger.Inputs[0]);
 
             binaryIn.Config["test"] = "hallo";

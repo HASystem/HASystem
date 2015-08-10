@@ -20,5 +20,7 @@ namespace HASystem.Server.Physical.Devices
             get;
             protected set;
         }
+
+        public abstract PhysicalComponent[] GetSupportedComponents(Logic.LogicComponent logicComponent);
     }
 }
