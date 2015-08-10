@@ -1,44 +1,42 @@
-﻿using GatesWpf;
-using HASystem.Desktop.Application.Views;
-using System;
-using System.Collections.Generic;
+﻿using HASystem.Desktop.Application.Views;
+using HASystem.Desktop.Presentation.Utils;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HASystem.Desktop.Presentation.Views
 {
     [Export(typeof(IMainView)), PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class MainView : UserControl, IMainView
+    public partial class MainView : IMainView
     {
+        #region fields
+        private DrawingHelper helper;
+        #endregion
+
         #region ctor
-        [ImportingConstructor]
         public MainView()
         {
             InitializeComponent();
+            helper = new DrawingHelper();
         }
         #endregion
 
-        private void designer_MouseDown(object sender, MouseButtonEventArgs e)
+        #region methods
+        private void OnMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var gate = new Gate();
-
+            var control = new Gate();
             var position = e.MouseDevice.GetPosition(designer);
 
-            Canvas.SetTop(gate, position.Y);
-            Canvas.SetLeft(gate, position.X);
+            Canvas.SetTop(control, position.Y);
+            Canvas.SetLeft(control, position.X);
 
-            designer.Children.Add(gate);
+            if (!helper.CollisionExists(control))
+            {
+                helper.AddControl(control);
+                designer.Children.Add(control);
+            }
         }
+        #endregion
+
+
     }
 }

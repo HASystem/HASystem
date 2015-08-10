@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Server", "HASystem.Server\HASystem.Server.csproj", "{74E8DFC2-BE5B-478B-B8AF-DF835AE49E06}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Domain", "HASystem.Desktop.Domain\HASystem.Desktop.Domain.csproj", "{6DF7C31B-D456-40C9-BAEA-A9C377193ED9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Assembler", "HASystem.Desktop.Assembler\HASystem.Desktop.Assembler.csproj", "{F7DD2DDF-E51E-4F1B-BB95-14A488FB009E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05237915-3820-4A8B-99A3-5C0C03743238} = {05237915-3820-4A8B-99A3-5C0C03743238}
+		{4F4D78E4-28CC-4984-9D37-D91AFDB3FE6A} = {4F4D78E4-28CC-4984-9D37-D91AFDB3FE6A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASystem.Desktop.Utilities", "HASystem.Desktop.Utilities\HASystem.Desktop.Utilities.csproj", "{E15511BC-8ED0-48EB-8976-36EFF98ED90F}"
 EndProject
