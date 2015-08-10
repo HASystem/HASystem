@@ -53,10 +53,12 @@
     <Compile Include="DataContracts\Component.cs" />
     <Compile Include="DataContracts\ComponentConnection.cs" />
     <Compile Include="DataContracts\Device.cs" />
+    <Compile Include="DataContracts\House.cs" />
     <Compile Include="DataContracts\Point.cs" />
     <Compile Include="DataContracts\Value.cs" />
     <Compile Include="ServiceContracts\IComponentsService.cs" />
     <Compile Include="ServiceContracts\IHousesService.cs" />
+    <Compile Include="ServiceImplementation\HousesService.cs" />
     <Compile Include="ServiceImplementation\ComponentsService.cs" />
     <Compile Include="ServiceImplementation\DevicesService.cs" />
     <Compile Include="Hook.cs" />

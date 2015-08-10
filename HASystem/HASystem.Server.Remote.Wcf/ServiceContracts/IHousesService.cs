@@ -1,4 +1,4 @@
-﻿using HASystem.Server.Logic;
+﻿using HASystem.Server.Remote.Wcf.DataContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,10 @@ namespace HASystem.Server.Remote.Wcf.ServiceContracts
         [OperationContract]
         [WebInvoke(UriTemplate = "{houseName}", Method = "DELETE")]
         void DeleteHouse(string houseName);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "", Method = "GET")]
+        House[] GetHouses();
 
         [OperationContract]
         [WebGet(UriTemplate = "current")]

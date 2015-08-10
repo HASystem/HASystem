@@ -57,7 +57,7 @@ namespace HASystem.Server
             ComponentsFactory = new LogicComponentsFactory();
         }
 
-        public House GetHouse(string name)
+        public House GetHouseByName(string name)
         {
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
@@ -67,6 +67,19 @@ namespace HASystem.Server
                 houses.TryGetValue(name, out house);
             }
             return house;
+        }
+
+        public bool RemoveHouse(House house)
+        {
+            if (house == null)
+                throw new ArgumentNullException("house");
+            if (String.IsNullOrWhiteSpace(house.Name))
+                throw new ArgumentNullException("house.Name");
+
+            lock (houses)
+            {
+                return houses.Remove(house.Name);
+            }
         }
 
         public House Clone(House house, string cloneName)
