@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HASystem.Shared.ValueSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace HASystem.Server.Logic.Components
 
         public override void Init()
         {
-            Inputs = new LogicInput[] { new LogicInput(this, 0, typeof(bool)) };
+            Inputs = new LogicInput[] { new LogicInput(this, 0, typeof(BooleanValue)) };
         }
     }
 }

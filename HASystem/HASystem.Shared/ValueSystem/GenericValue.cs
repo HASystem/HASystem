@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HASystem.Server.Logic
+namespace HASystem.Shared.ValueSystem
 {
-    public class GenericValue<T> : Value
+    public abstract class GenericValue<T> : Value
     {
         public T Value
         {
@@ -21,11 +21,6 @@ namespace HASystem.Server.Logic
 
         public GenericValue()
         {
-        }
-
-        public static implicit operator GenericValue<T>(T value)
-        {
-            return new GenericValue<T>(value);
         }
 
         public static implicit operator T(GenericValue<T> genericValue)

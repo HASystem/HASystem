@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HASystem.Shared.ValueSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,8 @@ namespace HASystem.Server.Logic
                 throw new ArgumentNullException("component");
             if (inputType == null)
                 throw new ArgumentNullException("inputType");
+            if (!typeof(Value).IsAssignableFrom(inputType))
+                throw new ArgumentException("InputType has to inherit from Value", "inputType");
 
             Component = component;
             Index = index;

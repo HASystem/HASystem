@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
-[assembly: AssemblyTitle("HASystem.Server.Remote.Wcf")]
+[assembly: AssemblyTitle("HASystem.Shared")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("HASystem.Server.Remote.Wcf")]
+[assembly: AssemblyProduct("HASystem.Shared")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("fca12a47-11db-4344-bb7d-d61ff5445d60")]
+[assembly: Guid("12a2cc1d-58e8-4e15-a537-0374e6692f8d")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //

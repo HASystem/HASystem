@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HASystem.Shared.ValueSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,12 @@ namespace HASystem.Server.Logic.Components
         public override void UpdateOutput()
         {
             bool value = Config.GetBoolean("Value", false);
-            Outputs[0].Value = new GenericValue<bool>(value);
+            Outputs[0].Value = new BooleanValue(value);
         }
 
         public override void Init()
         {
-            Outputs = new LogicOutput[] { new LogicOutput(this, 0, typeof(bool)) };
+            Outputs = new LogicOutput[] { new LogicOutput(this, 0, typeof(BooleanValue)) };
         }
 
         public BinaryIn()
