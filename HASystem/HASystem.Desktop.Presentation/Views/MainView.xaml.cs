@@ -1,4 +1,5 @@
-﻿using HASystem.Desktop.Application.Views;
+﻿using GatesWpf;
+using HASystem.Desktop.Application.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -27,5 +28,17 @@ namespace HASystem.Desktop.Presentation.Views
             InitializeComponent();
         }
         #endregion
+
+        private void designer_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var gate = new Gate();
+
+            var position = e.MouseDevice.GetPosition(designer);
+
+            Canvas.SetTop(gate, position.Y);
+            Canvas.SetLeft(gate, position.X);
+
+            designer.Children.Add(gate);
+        }
     }
 }
