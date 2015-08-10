@@ -32,7 +32,7 @@ namespace HASystem.Server
 
         public void Init()
         {
-            foreach (Type componentType in typeof(LogicComponentsFactory).Assembly.GetTypes().Where(p => p.IsAssignableFrom(typeof(LogicComponent))))
+            foreach (Type componentType in typeof(LogicComponentsFactory).Assembly.GetTypes().Where(p => typeof(LogicComponent).IsAssignableFrom(p)))
             {
                 ComponentAttribute att = componentType.GetCustomAttribute<ComponentAttribute>();
                 if (att == null)

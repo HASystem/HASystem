@@ -2,20 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using System.Text;
-
 using System.Threading.Tasks;
 
 namespace HASystem.Server.Logic
 {
-    public class House
+    public class House : ICloneable
     {
         private List<Device> devices = new List<Device>();
         private List<LogicComponent> logicComponents = new List<LogicComponent>();
         private Dispatcher dispatcher = new Dispatcher();
 
         private int currentLogicComponentsId = 1;
+
+        public string Name
+        {
+            get;
+            set;
+        }
 
         public IReadOnlyCollection<Device> Devices
         {
@@ -51,7 +55,7 @@ namespace HASystem.Server.Logic
             component.House = this;
             lock (logicComponents)
             {
-                component.Id = currentLogicComponentsId++;
+                component.Id = currentLogicComponentsId++; //TODO: improve id assignment
                 logicComponents.Add(component);
             }
 
@@ -69,13 +73,13 @@ namespace HASystem.Server.Logic
 
             component.House = null;
 
+            component.RemoveOutputConnections();
+            component.RemoveInputConnections();
+
             lock (logicComponents)
             {
                 logicComponents.Remove(component);
             }
-
-            component.RemoveOutputConnections();
-            component.RemoveInputConnections();
 
             dispatcher.RemoveTasksForComponent(component);
         }
@@ -92,7 +96,7 @@ namespace HASystem.Server.Logic
 
             lock (devices)
             {
-                if (devices.Where(p => Object.Equals(p.MACAddress, device.MACAddress)).FirstOrDefault() != null)
+                if (devices.Any(p => Object.Equals(p.MACAddress, device.MACAddress)))
                 {
                     throw new ArgumentException("device already exists");
                 }
@@ -106,6 +110,11 @@ namespace HASystem.Server.Logic
             {
                 devices.Remove(device);
             }
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

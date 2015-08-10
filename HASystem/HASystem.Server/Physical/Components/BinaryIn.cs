@@ -9,16 +9,16 @@ namespace HASystem.Server.Physical.Components
 {
     public class BinaryIn : PhysicalComponent
     {
-        public Port[] SupportedPorts
+        public Port Port
         {
             get;
             private set;
         }
 
-        public BinaryIn(PhysicalDevice physicalDevice, Port[] supportedPorts)
+        public BinaryIn(PhysicalDevice physicalDevice, Port port)
             : base(physicalDevice)
         {
-            SupportedPorts = supportedPorts;
+            Port = port;
         }
     }
 }

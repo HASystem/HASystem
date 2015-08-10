@@ -15,7 +15,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceContracts
     public interface IDevicesService
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/")]
+        [WebGet(UriTemplate = "")]
         Device[] GetAllDevices();
 
         [OperationContract]
@@ -23,7 +23,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceContracts
         Device GetDevice(string mac);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "/", Method = "POST")]
+        [WebInvoke(UriTemplate = "", Method = "POST")]
         void CreateDevice(Device device);
 
         [OperationContract]

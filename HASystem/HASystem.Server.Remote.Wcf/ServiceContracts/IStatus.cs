@@ -13,7 +13,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceContracts
     public interface IStatus
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/")]
+        [WebGet(UriTemplate = "")]
         string GetStatus();
     }
 }

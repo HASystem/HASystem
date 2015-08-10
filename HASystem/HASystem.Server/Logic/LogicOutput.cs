@@ -51,12 +51,6 @@ namespace HASystem.Server.Logic
             get { return connections; }
         }
 
-        public DateTime LastModified
-        {
-            get;
-            private set;
-        }
-
         public LogicOutput(LogicComponent component, int index, Type outputType)
         {
             if (component == null)
@@ -119,18 +113,17 @@ namespace HASystem.Server.Logic
         {
             lock (connections)
             {
-                foreach (LogicInput connection in connections)
+                foreach (LogicInput connection in connections.ToArray())
                 {
                     connection.ConnectedBy = null;
                     connections.Remove(connection);
-                    SendValueToConnection(connection, Value);
+                    SendValueToConnection(connection, null);
                 }
             }
         }
 
         protected void SetDirty()
         {
-            LastModified = DateTime.UtcNow;
         }
 
         private void SendValueToConnections()
@@ -151,7 +144,11 @@ namespace HASystem.Server.Logic
 
         private void SendValueToConnection(LogicInput connection, Value value)
         {
-            Component.House.EnqueueTask(new UpdateValueTask(connection, value));
+            House house = Component.House;
+            if (house != null)
+            {
+                house.EnqueueTask(new UpdateValueTask(connection, value));
+            }
         }
     }
 }
