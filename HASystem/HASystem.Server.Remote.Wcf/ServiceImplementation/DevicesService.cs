@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using HASystem.Server.Remote.Wcf.DataContracts;
-using HASystem.Server.Remote.Wcf.ServiceContracts;
+using HASystem.Shared.Remote.Wcf.DataContracts;
+using HASystem.Shared.Remote.Wcf.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.ServiceModel.Web;
-
 using System.Text;
-
 using System.Threading.Tasks;
 
 namespace HASystem.Server.Remote.Wcf.ServiceImplementation
@@ -18,7 +16,13 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
     {
         static DevicesService()
         {
-            Device.InitMapping();
+            //local to plain
+            Mapper.CreateMap<Logic.Device, Device>()
+                .ForMember(p => p.Name, m => m.MapFrom(l => l.Name))
+                .ForMember(p => p.State, m => m.MapFrom(l => l.State))
+                .ForMember(p => p.MACAddress, m => m.MapFrom(l => l.MACAddress))
+                .ForMember(p => p.IPAddress, m => m.MapFrom(l => l.IPAddress))
+                ;
         }
 
         public Device[] GetAllDevices()

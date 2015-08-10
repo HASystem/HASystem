@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using HASystem.Server.Remote.Wcf.DataContracts;
-using HASystem.Server.Remote.Wcf.ServiceContracts;
+using HASystem.Shared.Remote.Wcf.DataContracts;
+using HASystem.Shared.Remote.Wcf.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,9 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
     {
         static HousesService()
         {
-            House.InitMapping();
+            Mapper.CreateMap<Logic.House, House>()
+                .ForMember(p => p.Name, m => m.MapFrom(l => l.Name))
+            ;
         }
 
         public House GetHouse(string houseName)
