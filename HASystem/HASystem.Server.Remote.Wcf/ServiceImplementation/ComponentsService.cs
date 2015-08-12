@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HASystem.Server.Logic;
-using HASystem.Server.Remote.Wcf.DataContracts;
-using HASystem.Server.Remote.Wcf.ServiceContracts;
+using HASystem.Shared.Remote.Wcf.DataContracts;
+using HASystem.Shared.Remote.Wcf.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,13 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
     {
         static ComponentsService()
         {
-            Component.InitMapping();
+            Mapper.CreateMap<Logic.LogicComponent, Component>()
+                .ForMember(p => p.Id, m => m.MapFrom(l => l.Id))
+                .ForMember(p => p.ComponentType, m => m.MapFrom(l => l.ComponentType))
+                .ForMember(p => p.Config, m => m.MapFrom(l => new Dictionary<string, string>(l.Config)))
+                .ForMember(p => p.Position, m => m.MapFrom(l => new Point())) //TODO: map to position
+                .ForMember(p => p.Connections, m => m.MapFrom(l => l.Outputs.SelectMany(o => o.Connections.Select(c => new ComponentConnection(l.Id, o.Index, c.Component.Id, c.Index))).ToArray()))
+            ;
         }
 
         public Component[] GetComponents()
@@ -24,7 +30,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             return Manager.Instance.Current.Components.Select(l => Mapper.Map<Logic.LogicComponent, Component>(l)).ToArray();
         }
 
-        public DataContracts.Component GetSingleComponent(string id)
+        public Component GetSingleComponent(string id)
         {
             int idI = 0;
             if (!Int32.TryParse(id, out idI))
@@ -34,7 +40,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
             if (component == null)
                 throw new WebFaultException(HttpStatusCode.NotFound);
 
-            return Mapper.Map<DataContracts.Component>(component);
+            return Mapper.Map<Component>(component);
         }
 
         public string[] GetSupportedComponentTypes()

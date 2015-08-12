@@ -7,7 +7,7 @@ using System.Text;
 
 using System.Threading.Tasks;
 
-namespace HASystem.Server.Remote.Wcf.ServiceContracts
+namespace HASystem.Shared.Remote.Wcf.ServiceContracts
 {
     [ServiceContract]
     public interface IStatus

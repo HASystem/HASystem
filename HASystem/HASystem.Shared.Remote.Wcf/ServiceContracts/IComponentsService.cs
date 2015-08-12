@@ -1,4 +1,4 @@
-﻿using HASystem.Server.Remote.Wcf.DataContracts;
+﻿using HASystem.Shared.Remote.Wcf.DataContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HASystem.Server.Remote.Wcf.ServiceContracts
+namespace HASystem.Shared.Remote.Wcf.ServiceContracts
 {
     [ServiceContract]
     public interface IComponentsService

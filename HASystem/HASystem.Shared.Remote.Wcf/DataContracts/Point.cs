@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HASystem.Server.Remote.Wcf.DataContracts
+namespace HASystem.Shared.Remote.Wcf.DataContracts
 {
     [DataContract]
     public class Point : IExtensibleDataObject
