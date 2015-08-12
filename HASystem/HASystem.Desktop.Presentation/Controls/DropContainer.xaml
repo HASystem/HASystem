@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="HASystem.Desktop.Presentation.Controls.DropContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HASystem.Desktop.Presentation.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500">
+    
+        <Canvas x:Name="designer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White"
+            Width="500" Height="500" ClipToBounds="True" MouseDown="OnMouseDown"/>
+</UserControl>
