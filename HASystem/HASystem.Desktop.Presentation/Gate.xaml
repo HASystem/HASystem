@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HASystem.Desktop.Presentation"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="50">
+             d:DesignHeight="50" d:DesignWidth="50"
+             AllowDrop="True"
+             Background="LightGreen">
 
-    <Border BorderThickness="2" BorderBrush="Black" Background="LightGreen">
+    <Border BorderThickness="2" BorderBrush="Black" >
         <Grid Height="50" Width="50">
             <Label Content="Test" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>

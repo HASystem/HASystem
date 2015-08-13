@@ -3,10 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:gate="clr-namespace:HASystem.Desktop.Presentation"
              xmlns:local="clr-namespace:HASystem.Desktop.Presentation.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="500">
-    
-        <Canvas x:Name="designer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White"
-            Width="500" Height="500" ClipToBounds="True" MouseDown="OnMouseDown"/>
+
+    <!--<Canvas x:Name="designer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White"
+            Width="500" Height="500" ClipToBounds="True" 
+            AllowDrop="True"
+            DragOver="panel_DragOver"
+            Drop="panel_Drop">
+        
+        <gate:Gate x:Name="gate" />
+        
+    </Canvas>-->
+    <StackPanel  x:Name="designer" >
+        <gate:Gate />
+        <gate:Gate Background="Black"/>
+        <gate:Gate Background="Blue"/>
+
+    </StackPanel>
 </UserControl>
