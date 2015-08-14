@@ -4,10 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:HASystem.Desktop.Presentation.Controls"
+             xmlns:Gate="clr-namespace:HASystem.Desktop.Presentation"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
 
-    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-        <Controls:DropContainer />
-    </ScrollViewer>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Displaying all controls -->
+        <StackPanel>
+            <Gate:Gate Width="50" Height="50"/>
+        </StackPanel>
+        
+        <!-- Drop controls here -->
+        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <Controls:DropContainer />
+        </ScrollViewer>
+    </Grid>
 </UserControl>
