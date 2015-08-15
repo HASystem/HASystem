@@ -18,6 +18,7 @@ namespace HASystem.Desktop.Application.PresentationModels
     {
         #region properties
         public ICommand AddGateCommand { get; private set; }
+        public ICommand RemoveGateCommand { get; private set; }
         public ObservableCollection<GateBase<bool, bool>> Gates { get; private set; }
         #endregion
 
@@ -29,6 +30,7 @@ namespace HASystem.Desktop.Application.PresentationModels
             Gates = new ObservableCollection<GateBase<bool, bool>>();
 
             AddGateCommand = new DelegateCommand(AddGate);
+            RemoveGateCommand = new DelegateCommand(RemoveGate);
         }
         #endregion
 
@@ -36,6 +38,11 @@ namespace HASystem.Desktop.Application.PresentationModels
         private void AddGate(object o)
         {
             Gates.Add(new AndGate());
+        }
+
+        private void RemoveGate(object o)
+        {
+            //Gates.Remove(o);
         }
         #endregion
     }

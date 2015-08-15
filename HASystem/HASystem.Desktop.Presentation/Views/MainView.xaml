@@ -21,7 +21,8 @@
         <Ribbon Grid.ColumnSpan="2">
             <RibbonTab Header="Editor">
                 <RibbonGroup Header="Editor stuff">
-                    <RibbonButton Label="Add Gate" />
+                    <RibbonButton Label="Add Gate" Command="{Binding AddGateCommand}" />
+                    <RibbonButton Label="Remove Gate" Command="{Binding RemoveGateCommand}" />
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
