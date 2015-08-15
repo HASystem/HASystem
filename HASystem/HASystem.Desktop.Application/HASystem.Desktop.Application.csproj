@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Controllers\ConnectionHelper.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="DataModels\GateBaseDataModel.cs" />
+    <Compile Include="DataModels\IGraphicalControl.cs" />
     <Compile Include="PresentationModels\MainPresentationModel.cs" />
     <Compile Include="PresentationModels\PresentationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

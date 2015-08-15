@@ -47,6 +47,7 @@
     <Compile Include="Gates\IOuput.cs" />
     <Compile Include="Gates\LogicGates\AndGate.cs" />
     <Compile Include="Gates\Output.cs" />
+    <Compile Include="IDomainObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
