@@ -8,17 +8,30 @@
              d:DesignHeight="600" d:DesignWidth="600">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <!-- Displaying menu -->
+        <Ribbon Grid.ColumnSpan="2">
+            <RibbonTab Header="Editor">
+                <RibbonGroup Header="Editor stuff">
+                    <RibbonButton Label="Add Gate" />
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        
         <!-- Displaying all controls -->
-        <StackPanel>
+        <StackPanel Grid.Row="1">
             <Controls:Gate Width="50" Height="50"/>
         </StackPanel>
         
         <!-- Drop controls here -->
-        <Controls:DragDropContainer Grid.Column="1"  />
+        <Controls:DragDropContainer Grid.Row="1" Grid.Column="1"  />
     </Grid>
 </UserControl>

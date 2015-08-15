@@ -9,9 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="500">
 
-    <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-        <controls:DragDropCanvas AllowDragging="True" AllowDrop="True">
-            <controls:Gate />
-        </controls:DragDropCanvas>
-    </ScrollViewer>
+    <controls:DragDropCanvas AllowDragging="True" AllowDrop="True">
+        <controls:Gate />
+    </controls:DragDropCanvas>
 </UserControl>
