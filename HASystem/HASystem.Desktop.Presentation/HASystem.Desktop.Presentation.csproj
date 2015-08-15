@@ -46,10 +46,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\DropContainer.xaml.cs">
-      <DependentUpon>DropContainer.xaml</DependentUpon>
+    <Compile Include="Controls\DragDropCanvas.cs" />
+    <Compile Include="Controls\DragDropContainer.xaml.cs">
+      <DependentUpon>DragDropContainer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gate.xaml.cs">
+    <Compile Include="Controls\Gate.xaml.cs">
       <DependentUpon>Gate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,11 +62,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\DropContainer.xaml">
+    <Page Include="Controls\DragDropContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gate.xaml">
+    <Page Include="Controls\Gate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,10 +89,7 @@
       <Name>HASystem.Desktop.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Gates\BasicGates\" />
-    <Folder Include="Gates\IOGates\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

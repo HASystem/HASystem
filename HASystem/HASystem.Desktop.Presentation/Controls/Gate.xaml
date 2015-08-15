@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HASystem.Desktop.Presentation.Gate"
+﻿<UserControl x:Class="HASystem.Desktop.Presentation.Controls.Gate"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:HASystem.Desktop.Presentation"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="50"
-             AllowDrop="True"
              Background="LightGreen">
 
     <Border BorderThickness="2" BorderBrush="Black" >
