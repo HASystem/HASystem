@@ -16,9 +16,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
     {
         static HousesService()
         {
-            Mapper.CreateMap<Logic.House, House>()
-                .ForMember(p => p.Name, m => m.MapFrom(l => l.Name))
-            ;
+            Mapping.Init();
         }
 
         private Logic.House GetHouseByName(string houseName)

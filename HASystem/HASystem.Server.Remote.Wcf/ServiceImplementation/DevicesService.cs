@@ -17,13 +17,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
     {
         static DevicesService()
         {
-            //local to plain
-            Mapper.CreateMap<Logic.Device, Device>()
-                .ForMember(p => p.Name, m => m.MapFrom(l => l.Name))
-                .ForMember(p => p.State, m => m.MapFrom(l => l.State))
-                .ForMember(p => p.MACAddress, m => m.MapFrom(l => l.MACAddress))
-                .ForMember(p => p.IPAddress, m => m.MapFrom(l => l.IPAddress))
-                ;
+            Mapping.Init();
         }
 
         public Device[] GetAllDevices()

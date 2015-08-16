@@ -17,13 +17,7 @@ namespace HASystem.Server.Remote.Wcf.ServiceImplementation
     {
         static ComponentsService()
         {
-            Mapper.CreateMap<Logic.LogicComponent, Component>()
-                .ForMember(p => p.Id, m => m.MapFrom(l => l.Id))
-                .ForMember(p => p.ComponentType, m => m.MapFrom(l => l.ComponentType))
-                .ForMember(p => p.Config, m => m.MapFrom(l => new Dictionary<string, string>(l.Config)))
-                .ForMember(p => p.Position, m => m.MapFrom(l => new Point())) //TODO: map to position
-                .ForMember(p => p.Connections, m => m.MapFrom(l => l.Outputs.SelectMany(o => o.Connections.Select(c => new ComponentConnection(l.Id, o.Index, c.Component.Id, c.Index))).ToArray()))
-            ;
+            Mapping.Init();
         }
 
         public string[] GetSupportedComponentTypes()
