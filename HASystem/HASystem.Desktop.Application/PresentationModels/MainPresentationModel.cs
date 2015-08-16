@@ -1,4 +1,5 @@
-﻿using HASystem.Desktop.Application.Views;
+﻿using HASystem.Desktop.Application.DataModels;
+using HASystem.Desktop.Application.Views;
 using HASystem.Desktop.Domain.Gates;
 using HASystem.Desktop.Domain.Gates.LogicGates;
 using HASystem.Desktop.Utilities;
@@ -16,9 +17,22 @@ namespace HASystem.Desktop.Application.PresentationModels
     [Export(typeof(MainPresentationModel)), PartCreationPolicy(CreationPolicy.Shared)]
     public class MainPresentationModel : PresentationModel<IMainView>
     {
+        #region fields
+        private GateBaseDataModel selectedGate;
+        #endregion
+
         #region properties
         public ICommand AddGateCommand { get; private set; }
-        public ObservableCollection<GateBase<bool, bool>> Gates { get; private set; }
+        public ICommand RemoveGateCommand { get; private set; }
+        public GateBaseDataModel SelectedGate {
+            get { return selectedGate; }
+            set
+            {
+                selectedGate = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<GateBaseDataModel> Gates { get; private set; }
         #endregion
 
         #region ctor
@@ -26,16 +40,22 @@ namespace HASystem.Desktop.Application.PresentationModels
         public MainPresentationModel(IMainView view)
         {
             View = view;
-            Gates = new ObservableCollection<GateBase<bool, bool>>();
+            Gates = new ObservableCollection<GateBaseDataModel>();
 
             AddGateCommand = new DelegateCommand(AddGate);
+            RemoveGateCommand = new DelegateCommand(RemoveGate);
         }
         #endregion
 
         #region methods
         private void AddGate(object o)
         {
-            Gates.Add(new AndGate());
+            Gates.Add(new GateBaseDataModel());
+        }
+
+        private void RemoveGate(object o)
+        {
+            //Gates.Remove(o);
         }
         #endregion
     }

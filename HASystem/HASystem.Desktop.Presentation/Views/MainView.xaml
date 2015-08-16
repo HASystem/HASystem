@@ -3,11 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:HASystem.Desktop.Presentation.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
 
-    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-        <Canvas x:Name="designer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White"
-            Width="500" Height="500" ClipToBounds="True" MouseDown="OnMouseDown"/>
-    </ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Displaying menu -->
+        <Ribbon Grid.ColumnSpan="2">
+            <RibbonTab Header="Editor">
+                <RibbonGroup Header="Editor stuff">
+                    <RibbonButton Label="Add Gate" Command="{Binding AddGateCommand}" />
+                    <RibbonButton Label="Remove Gate" Command="{Binding RemoveGateCommand}" />
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        
+        <!-- Displaying all controls -->
+        <StackPanel Grid.Row="1">
+            <Controls:Gate Width="50" Height="50"/>
+        </StackPanel>
+        
+        <!-- Drop controls here -->
+        <Controls:DragDropContainer Grid.Row="1" Grid.Column="1"  />
+    </Grid>
 </UserControl>
