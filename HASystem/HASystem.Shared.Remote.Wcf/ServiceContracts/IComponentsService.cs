@@ -13,31 +13,7 @@ namespace HASystem.Shared.Remote.Wcf.ServiceContracts
     public interface IComponentsService
     {
         [OperationContract]
-        [WebGet(UriTemplate = "")]
-        Component[] GetComponents();
-
-        [OperationContract]
-        [WebGet(UriTemplate = "{id}")]
-        Component GetSingleComponent(string id);
-
-        [OperationContract]
-        [WebInvoke(UriTemplate = "", Method = "POST")]
-        int CreateComponent(Component component);
-
-        [OperationContract]
-        [WebInvoke(UriTemplate = "{id}", Method = "PUT")]
-        void SaveComponent(string id, Component component);
-
-        [OperationContract]
-        [WebInvoke(UriTemplate = "{id}", Method = "DELETE")]
-        void DeleteComponent(string id);
-
-        [OperationContract]
         [WebGet(UriTemplate = "supported")]
         string[] GetSupportedComponentTypes();
-
-        [OperationContract]
-        [WebGet(UriTemplate = "{id}/outputs/{index}/value")]
-        Value GetOutputValue(string id, string index);
     }
 }

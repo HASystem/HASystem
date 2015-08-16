@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HostedServiceAttribute.cs" />
     <Compile Include="ServiceImplementation\HousesService.cs" />
     <Compile Include="ServiceImplementation\ComponentsService.cs" />
     <Compile Include="ServiceImplementation\DevicesService.cs" />

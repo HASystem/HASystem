@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HASystem.Server.Remote.Wcf.ServiceImplementation
 {
+    [HostedService("Devices")]
     public class DevicesService : IDevicesService
     {
         static DevicesService()
